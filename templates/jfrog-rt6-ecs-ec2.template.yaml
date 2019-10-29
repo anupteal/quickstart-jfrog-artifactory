@@ -373,7 +373,7 @@ Resources:
     DependsOn: ArtifactoryScalingGroup
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-artifactory-ecs.template.yaml'
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt6-ecs.template.yaml'
       Parameters:
         ECSCluster: !Ref ClusterName # In case we do not build the cluster we still require the Name of the cluster built.
         ServiceName: ArtifactoryPrimary
@@ -396,7 +396,7 @@ Resources:
     DependsOn: PrimaryStack
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-artifactory-ecs.template.yaml'
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt6-ecs.template.yaml'
       Parameters:
         ECSCluster: !Ref ClusterName # In case we do not build the cluster we still require the Name of the cluster built.
         ServiceName: ArtifactorySecondary

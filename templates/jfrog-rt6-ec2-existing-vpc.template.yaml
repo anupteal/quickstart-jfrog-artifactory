@@ -484,7 +484,7 @@ Resources:
   ArtifactoryCoreInfraStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-artifactory-core-infrastructure.template.yaml"
+      TemplateURL: !Sub "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt-core-infrastructure.template.yaml"
       Parameters:
         VPCID: !Ref VPCID
         VPCCIDR: !Ref VPCCIDR
@@ -635,7 +635,7 @@ Resources:
   ArtifactoryMaster:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-artifactory-ec2-instance.template.yaml'
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt6-ec2-instance.template.yaml'
       Parameters:
         PrivateSubnet1ID: !Ref PrivateSubnet1ID
         PrivateSubnet2ID: !Ref PrivateSubnet2ID
@@ -678,7 +678,7 @@ Resources:
     DependsOn: ArtifactoryMaster
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-artifactory-ec2-instance.template.yaml'
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt6-ec2-instance.template.yaml'
       Parameters:
         PrivateSubnet1ID: !Ref PrivateSubnet1ID
         PrivateSubnet2ID: !Ref PrivateSubnet2ID
