@@ -56,10 +56,6 @@
         "ParameterValue": "localdomain"
     },
     {
-        "ParameterKey": "SMLicensesName",
-        "ParameterValue": "jfrog-artifactory"
-    },
-    {
         "ParameterKey": "MasterKey",
         "ParameterValue": "override"
     },
