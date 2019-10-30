@@ -292,6 +292,7 @@ Resources:
               --region ${AWS::Region} || cfn_fail
 
               export ANSIBLE_VAULT_PASSWORD_FILE="/root/.vault_pass.txt"
+              cat /root/.artifactory_ansible/artifactory.yml
 
               /usr/local/bin/ansible-playbook /root/.artifactory_ansible/artifactory.yml || qs_err " ansible execution failed "
 
