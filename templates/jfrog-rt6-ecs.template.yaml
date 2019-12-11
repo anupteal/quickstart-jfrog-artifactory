@@ -111,14 +111,14 @@ Resources:
             - Name: nofile
               SoftLimit: 32000
               HardLimit: 40000
-          HealthCheck:
-            Command: 
-              - CMD-SHELL
-              - (printf 'GET /artifactory/api/system/ping HTTP/1.0\r\n\r\n'; sleep 1) | nc 127.0.0.1 8081 | grep OK || exit 1
-            Interval: 5
-            Retries: 3
-            StartPeriod: 60
-            Timeout: 10
+          # HealthCheck:
+          #   Command: 
+          #     - CMD-SHELL
+          #     - (printf 'GET /artifactory/api/system/ping HTTP/1.0\r\n\r\n'; sleep 1) | nc 127.0.0.1 8081 | grep OK || exit 1
+          #   Interval: 5
+          #   Retries: 3
+          #   StartPeriod: 60
+          #   Timeout: 10
           Environment:
             - Name: EXTRA_JAVA_OPTIONS
               Value: !Ref ExtraJavaOptions
@@ -128,7 +128,7 @@ Resources:
               Value: !Ref ArtifactoryPrimary
             - Name: DB_URL
               Value: !Sub
-                jdbc:mysql://${ArtifactoryDBEndpointAddress}:3306/${DatabaseName}?characterEncoding=UTF-8&elideSetAutoCommits=true&verifyServerCertificate=true&useSSL=true&requireSSL=true 
+                jdbc:mysql://${ArtifactoryDBEndpointAddress}:3306/${DatabaseName}?characterEncoding=UTF-8&elideSetAutoCommits=true&verifyServerCertificate=true&useSSL=false&requireSSL=false 
             - Name: DB_TYPE
               Value: !Ref DBType
             - Name: DB_USER
@@ -152,9 +152,9 @@ Resources:
               HostPort: 443
               Protocol: tcp
           Essential: false
-          DependsOn: 
-            - Condition: HEALTHY
-              ContainerName: artifactory
+          # DependsOn: 
+          #   - Condition: HEALTHY
+          #     ContainerName: artifactory
           Links:
             - artifactory:artifactory
           MountPoints:
