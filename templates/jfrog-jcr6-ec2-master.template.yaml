@@ -8,7 +8,7 @@ Metadata:
         Parameters:
           - KeyPairName
           - AccessCIDR
-          - RemoteAccessCIDR    
+          - RemoteAccessCIDR
       - Label:
           default: Network configuration
         Parameters:
@@ -27,7 +27,7 @@ Metadata:
           - BastionRootVolumeSize
           - BastionEnableTCPForwarding
           - NumBastionHosts
-          - BastionEnableX11Forwarding          
+          - BastionEnableX11Forwarding
       - Label:
           default: Amazon EC2 configuration
         Parameters:
@@ -35,10 +35,10 @@ Metadata:
           - VolumeSize
           - InstanceType
       - Label:
-          default: JFrog JCR configuration
+          default: JFrog Artifactory configuration
         Parameters:
           - ArtifactoryVersion
-          - NumberOfSecondary 
+          - NumberOfSecondary
           - SMLicensesName
           - Certificate
           - CertificateKey
@@ -83,7 +83,7 @@ Metadata:
       AccessCIDR:
         default: Permitted IP range
       RemoteAccessCIDR:
-        default: Remote access CIDR 
+        default: Remote access CIDR
       VPCCIDR:
         default: VPC CIDR
       ProvisionBastionHost:
@@ -104,8 +104,8 @@ Metadata:
         default: EBS root volume size
       InstanceType:
         default: EC2 instance type
-      NumberOfSecondary:
-        default: Number of secondary instances
+      #NumberOfSecondary:
+      #  default: Number of secondary instances
       ArtifactoryVersion:
         default: Artifactory version
       SMLicensesName:
@@ -123,9 +123,9 @@ Metadata:
       ExtraJavaOptions:
         default: Extra Java options
       KeystorePassword:
-        default: Java keystore password  
+        default: Java keystore password
       AnsibleVaultPass:
-        default: Ansible Vault password          
+        default: Ansible Vault password
       DatabaseName:
         default: Database name
       DatabaseEngine:
@@ -161,8 +161,8 @@ Parameters:
     Default: us-west-2a, us-west-1b
     Type: List<AWS::EC2::AvailabilityZone::Name>
   KeyPairName:
-    Description: The name of an existing public/private key pair, 
-      which allows you to connect securely to your instance after it launches. 
+    Description: The name of an existing public/private key pair,
+      which allows you to connect securely to your instance after it launches.
       This is the key pair you created in your preferred region.
     Type: AWS::EC2::KeyPair::KeyName
   PrivateSubnet1CIDR:
@@ -176,7 +176,7 @@ Parameters:
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/(1[6-9]|2[0-8]))$
     ConstraintDescription: CIDR block parameter must be in the form x.x.x.x/16-28
     Default: 10.0.32.0/19
-    Type: String 
+    Type: String
   PublicSubnet1CIDR:
     Description: The CIDR block for the public (DMZ) subnet 1 located in Availability
       Zone 1.
@@ -192,15 +192,15 @@ Parameters:
     Default: 10.0.144.0/20
     Type: String
   AccessCIDR:
-    Description: The CIDR IP range that is permitted to access Artifactory. 
-      We recommend that you set this value to a trusted IP range. 
-      For example, you might want to grant only your corporate network access to the software. 
+    Description: The CIDR IP range that is permitted to access Artifactory.
+      We recommend that you set this value to a trusted IP range.
+      For example, you might want to grant only your corporate network access to the software.
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
     Type: String
   RemoteAccessCIDR:
-    Description: The remote CIDR range for allowing SSH into the Bastion instance. 
-      We recommend that you set this value to a trusted IP range. 
-      For example, you might want to grant specific ranges inside your corporate network SSH access. 
+    Description: The remote CIDR range for allowing SSH into the Bastion instance.
+      We recommend that you set this value to a trusted IP range.
+      For example, you might want to grant specific ranges inside your corporate network SSH access.
     AllowedPattern: ^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$
     Type: String
   ProvisionBastionHost:
@@ -235,15 +235,15 @@ Parameters:
   BastionEnableTCPForwarding:
     Description: Choose whether to enable TCPForwarding via the bootstrapping of the bastion instance
       or not.
-    AllowedValues: 
+    AllowedValues:
       - "true"
       - "false"
     Default: "true"
     Type: String
   BastionEnableX11Forwarding:
-    Description: Choose true to enable X11 via the bootstrapping of the bastion host. 
-      Setting this value to true will enable X Windows over SSH. 
-      X11 forwarding can be very useful but it is also a security risk, so we recommend 
+    Description: Choose true to enable X11 via the bootstrapping of the bastion host.
+      Setting this value to true will enable X Windows over SSH.
+      X11 forwarding can be very useful but it is also a security risk, so we recommend
       that you keep the default (false) setting unless required.
     AllowedValues:
       - "true"
@@ -271,18 +271,18 @@ Parameters:
     Type: String
   AmiId:
     Default: AMZNLINUXHVM
-    Description: The Amazon Machine Image AMI being utilized as the underlying operating system to 
-      install Artifactory. 
-    AllowedValues: 
+    Description: The Amazon Machine Image AMI being utilized as the underlying operating system to
+      install Artifactory.
+    AllowedValues:
       - 'AMZNLINUXHVM'
-    Type: String    
+    Type: String
   VolumeSize:
-    Description: The size in GB of the available storage; the Quick Start will create an 
+    Description: The size in GB of the available storage; the Quick Start will create an
       Amazon Elastic Block Store (Amazon EBS) volumes of this size.
     Default: 200
     Type: Number
   InstanceType:
-    Description: The EC2 instance type for the JCR instance.
+    Description: The EC2 instance type for the Artifactory instances.
     AllowedValues:
       - m4.xlarge
       - m4.2xlarge
@@ -291,27 +291,27 @@ Parameters:
     ConstraintDescription: Must contain valid instance type.
     Default: m4.xlarge
     Type: String
-  NumberOfSecondary:
-    Description: The number of secondary JCR servers to complete your
-      HA deployment. To fit the Artifactory best practices, the minimum number
-      is two; the maximum is seven. Do not select more than instances than you 
-      have licenses for.
-    AllowedValues:
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-    Default: 2
-    Type: Number
+ # NumberOfSecondary:
+ #   Description: The number of secondary Artifactory servers to complete your
+ #     HA deployment. To fit the Artifactory best practices, the minimum number
+ #     is two; the maximum is seven. Do not select more than instances than you
+ #     have licenses for.
+ #   AllowedValues:
+ #     - 2
+ #     - 3
+ #     - 4
+ #     - 5
+ #     - 6
+ #     - 7
+ #   Default: 2
+ #   Type: Number
   ArtifactoryVersion:
-    Description: The version of JCR that you want to deploy into the Quick Start.
+    Description: The version of Artifactory that you want to deploy into the Quick Start.
       Please see the release notes to select the version you want to deploy.
-      https://www.jfrog.com/confluence/display/JCR/Release+Notes
+      https://www.jfrog.com/confluence/display/RTF/Release+Notes
     AllowedPattern: ^(([0-9]|[1-9][0-9])\.){2}([1-9][0-9]|[0-9])$
-    ConstraintDescription: A version that matches X.X.X per JCR releases.
-    Default: 6.13.1
+    ConstraintDescription: A version that matches X.X.X per Artifactory releases.
+    Default: 6.16.0
     Type: String
   SMLicensesName:
     Description: The secret name created in AWS Secrets Manager which contains the Artifactory licenses.
@@ -321,8 +321,8 @@ Parameters:
     #AllowedPattern: ^(-----BEGIN CERTIFICATE-----)(.*?)+(-----END CERTIFICATE-----)$
     #ConstraintDescription: A Certificate that begins with "-----BEGIN CERTIFICATE----- " and ends with "-----END CERTIFICATE----- ".
     Type: String
-  CertificateKey: 
-    Description: The private key for the certificate.     
+  CertificateKey:
+    Description: The private key for the certificate.
     #AllowedPattern: ^(-----BEGIN [A-Za-z ]+ KEY-----)(.*?)+(-----END [A-Za-z ]+ KEY-----)$
     #ConstraintDescription: A Private key that begins with "-----BEGIN PRIVATE KEY-----" and ends with "-----END PRIVATE KEY-----".
     NoEcho: 'true'
@@ -333,10 +333,10 @@ Parameters:
     ConstraintDescription: The domain must not start or end with a '.'
     Type: String
   ArtifactoryServerName:
-    Description: The name of your JCR server. Ensure that this matches your certificate.
+    Description: The name of your Artifactory server. Ensure that this matches your certificate.
     Type: String
   MasterKey:
-    Description: The master key for the JCR cluster. Generate a master key by using the command '$openssl rand -hex 16'.
+    Description: The master key for the Artifactory cluster. Generate a master key by using the command '$openssl rand -hex 16'.
     AllowedPattern: ^[a-zA-Z0-9]+$
     MinLength: '1'
     MaxLength: '64'
@@ -344,30 +344,30 @@ Parameters:
     NoEcho: 'true'
     Type: String
   ExtraJavaOptions:
-    Description: Setting Java memory parameters for JCR. For more information, see the JCR
-      system requirements. 
-      https://www.jfrog.com/confluence/display/JCR/System+Requirements#SystemRequirements-RecommendedHardware.
+    Description: Setting Java memory parameters for Artifactory. For more information, see the Artifactory
+      system requirements.
+      https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware.
     Default: -server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC
-    Type: String  
+    Type: String
   KeystorePassword:
-    Description: A new Java keystore password. For better security the password that you specify will 
+    Description: A new Java keystore password. For better security the password that you specify will
       replace the default Java keystore password.
     NoEcho: 'true'
     Type: String
   AnsibleVaultPass:
     Description: The Ansible Vault password to protect the Artifactory YAML configuration file
-      generated during the Artifactory deployment. This YAML file is stored on the EC2 nodes 
+      generated during the Artifactory deployment. This YAML file is stored on the EC2 nodes
       and secured with this password.
     NoEcho: 'true'
-    Type: String    
+    Type: String
   DatabaseName:
-    Description: The name for your DB instance. The name must be unique across all DB instances 
-      owned by your AWS account in the current AWS Region. The DB instance identifier is case-insensitive, 
+    Description: The name for your DB instance. The name must be unique across all DB instances
+      owned by your AWS account in the current AWS Region. The DB instance identifier is case-insensitive,
       but is stored as all lowercase (as in "mydbinstance").
     AllowedPattern: ^[a-zA-Z]([a-zA-Z0-9])+$
     MinLength: '1'
     MaxLength: '60'
-    ConstraintDescription: 1 to 60 alphanumeric characters First character must be a letter.   
+    ConstraintDescription: 1 to 60 alphanumeric characters First character must be a letter.
     Default: artdb
     Type: String
   DatabaseEngine:
@@ -380,9 +380,9 @@ Parameters:
     Description: The major version of the MySQL database engine you want to run. This is currently locked to MySQL versions
       supported by Artifactory and RDS.
     AllowedValues:
-    - 5.5
-    - 5.6
-    - 5.7
+      - 5.5
+      - 5.6
+      - 5.7
     Default: 5.7
     Type: String
   DatabaseUser:
@@ -466,8 +466,8 @@ Resources:
       Parameters:
         AvailabilityZones:
           Fn::Join:
-          - ','
-          - Ref: AvailabilityZones
+            - ','
+            - Ref: AvailabilityZones
         KeyPairName:
           Ref: KeyPairName
         NumberOfAZs: '2'
@@ -484,7 +484,7 @@ Resources:
   ArtifactoryExistingVPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt6-ec2-existing-vpc.template.yaml'
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-jcr6-ec2-existing-vpc.template.yaml'
       Parameters:
         AmiId: !Ref AmiId
         KeyPairName: !Ref KeyPairName
@@ -528,7 +528,7 @@ Resources:
         MultiAZDatabase: !Ref MultiAZDatabase
         QSS3BucketName: !Ref QSS3BucketName
         QSS3KeyPrefix: !Ref QSS3KeyPrefix
-        
+
 Outputs:
   ArtifactoryUrl:
     Description: URL of the ELB to access Artifactory
