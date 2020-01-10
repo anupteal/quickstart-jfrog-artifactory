@@ -125,29 +125,31 @@ Conditions:
     - !Ref 'AWS::Region'
     - us-gov-west-1
 Resources:
-  ArtifactoryScalingGroup:
-    Type: 'AWS::AutoScaling::AutoScalingGroup'
-    Properties:
-      LaunchConfigurationName: !Ref ArtifactoryLaunchConfiguration
-      VPCZoneIdentifier:
-        - !Ref PrivateSubnet1ID
-        - !Ref PrivateSubnet2ID
-      MinSize: !Ref MinScalingNodes
-      MaxSize: !Ref MaxScalingNodes
-      Cooldown: '300'
-      DesiredCapacity: !Ref MinScalingNodes
-      LoadBalancerNames: 
-        - !Ref ArtifactoryELB
-      HealthCheckType: ELB
-      HealthCheckGracePeriod: 600
-      Tags:
-        - Key: Name
-          Value: !Ref DeploymentTag
-          PropagateAtLaunch: true
-    CreationPolicy:
-      ResourceSignal:
-        Count: 1
-        Timeout: PT30M
+ # ArtifactoryScalingGroup:
+ #   Type: 'AWS::AutoScaling::AutoScalingGroup'
+ #   Properties:
+ #     LaunchConfigurationName: !Ref ArtifactoryLaunchConfiguration
+ #     VPCZoneIdentifier:
+ #       - !Ref PrivateSubnet1ID
+ #       - !Ref PrivateSubnet2ID
+ #     MinSize: !Ref MinScalingNodes
+ #     MaxSize: !Ref MaxScalingNodes
+ #     Cooldown: '300'
+ #     DesiredCapacity: !Ref MinScalingNodes
+ #     LoadBalancerNames:
+ #       - !Ref ArtifactoryELB
+ #     HealthCheckType: ELB
+ #     HealthCheckGracePeriod: 600
+ #     Tags:
+ #       - Key: Name
+ #         Value: !Ref DeploymentTag
+ #         PropagateAtLaunch: true
+ #   CreationPolicy:
+ #     ResourceSignal:
+ #       Count: !Ref MinScalingNodes
+ #       Timeout: PT30M
+ #     AutoScalingCreationPolicy:
+ #       MinSuccessfulInstancesPercent: 100
   ArtifactoryLaunchConfiguration:
       Type: 'AWS::AutoScaling::LaunchConfiguration'
       Metadata:
