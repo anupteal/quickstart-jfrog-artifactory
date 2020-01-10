@@ -621,10 +621,10 @@ Resources:
         QSS3BucketName: !Ref QSS3BucketName
         QSS3KeyPrefix: !Ref QSS3KeyPrefix
         AmiId: !Ref AmiId
-        #ArtifactoryLicense1: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense1}}'
-        #ArtifactoryLicense2: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense2}}'
-        #ArtifactoryLicense3: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense3}}'
-        #ArtifactoryLicense4: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense4}}'
+        ArtifactoryLicense1: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense1}}'
+        ArtifactoryLicense2: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense2}}'
+        ArtifactoryLicense3: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense3}}'
+        ArtifactoryLicense4: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense4}}'
         ArtifactoryServerName: !Ref ArtifactoryServerName
         CertificateDomain: !Ref CertificateDomain
         ArtifactoryIAMAcessKey: !GetAtt ArtifactoryCoreInfraStack.Outputs.IAMAcessKey
