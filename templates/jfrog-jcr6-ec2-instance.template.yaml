@@ -19,14 +19,14 @@ Parameters:
     Type: String
   QSS3KeyPrefix:
     Type: String
-  #ArtifactoryLicense1:
-  #  Type: String
-  #ArtifactoryLicense2:
-  #  Type: String
-  #ArtifactoryLicense3:
-  #  Type: String
-  #ArtifactoryLicense4:
-  #  Type: String
+  ArtifactoryLicense1:
+    Type: String
+  ArtifactoryLicense2:
+    Type: String
+  ArtifactoryLicense3:
+    Type: String
+  ArtifactoryLicense4:
+    Type: String
   ArtifactoryServerName:
     Type: String
   CertificateDomain:
@@ -125,31 +125,29 @@ Conditions:
     - !Ref 'AWS::Region'
     - us-gov-west-1
 Resources:
- # ArtifactoryScalingGroup:
- #   Type: 'AWS::AutoScaling::AutoScalingGroup'
- #   Properties:
- #     LaunchConfigurationName: !Ref ArtifactoryLaunchConfiguration
- #     VPCZoneIdentifier:
- #       - !Ref PrivateSubnet1ID
- #       - !Ref PrivateSubnet2ID
- #     MinSize: !Ref MinScalingNodes
- #     MaxSize: !Ref MaxScalingNodes
- #     Cooldown: '300'
- #     DesiredCapacity: !Ref MinScalingNodes
- #     LoadBalancerNames:
- #       - !Ref ArtifactoryELB
- #     HealthCheckType: ELB
- #     HealthCheckGracePeriod: 600
- #     Tags:
- #       - Key: Name
- #         Value: !Ref DeploymentTag
- #         PropagateAtLaunch: true
- #   CreationPolicy:
- #     ResourceSignal:
- #       Count: !Ref MinScalingNodes
- #       Timeout: PT30M
- #     AutoScalingCreationPolicy:
- #       MinSuccessfulInstancesPercent: 100
+  ArtifactoryScalingGroup:
+    Type: 'AWS::AutoScaling::AutoScalingGroup'
+    Properties:
+      LaunchConfigurationName: !Ref ArtifactoryLaunchConfiguration
+      VPCZoneIdentifier:
+        - !Ref PrivateSubnet1ID
+        - !Ref PrivateSubnet2ID
+      MinSize: !Ref MinScalingNodes
+      MaxSize: !Ref MaxScalingNodes
+      Cooldown: '300'
+      DesiredCapacity: !Ref MinScalingNodes
+      LoadBalancerNames:
+        - !Ref ArtifactoryELB
+      HealthCheckType: ELB
+      HealthCheckGracePeriod: 600
+      Tags:
+        - Key: Name
+          Value: !Ref DeploymentTag
+          PropagateAtLaunch: true
+    CreationPolicy:
+      ResourceSignal:
+        Count: 1
+        Timeout: PT30M
   ArtifactoryLaunchConfiguration:
       Type: 'AWS::AutoScaling::LaunchConfiguration'
       Metadata:
@@ -172,6 +170,10 @@ Resources:
                     # Base install for Artifactory
                     - import_playbook: site-artifactory.yml
                       vars:
+                        artifactory_license1: ${ArtifactoryLicense1}
+                        artifactory_license2: ${ArtifactoryLicense2}
+                        artifactory_license3: ${ArtifactoryLicense3}
+                        artifactory_license4: ${ArtifactoryLicense4}
                         artifactory_server_name: ${ArtifactoryServerName}
                         certificate_domain: ${CertificateDomain}
                         s3_endpoint: s3.${AWS::Region}.amazonaws.com
