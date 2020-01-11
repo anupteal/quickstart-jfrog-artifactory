@@ -274,7 +274,7 @@ Parameters:
       - t3.medium
       - t3.large
     ConstraintDescription: Must contain valid instance type.
-    Default: "t3.medium"
+    Default: "t3.large"
     Type: String
   ArtifactoryVersion:
     Description: The version of Artifactory that you want to deploy into the Quick Start.
@@ -318,7 +318,7 @@ Parameters:
     Description: Setting Java memory parameters for Artifactory. For more information, see the Artifactory
       system requirements.
       https://www.jfrog.com/confluence/display/RTF/System+Requirements#SystemRequirements-RecommendedHardware.
-    Default: -server -Xms2g -Xmx14g -Xss256k -XX:+UseG1GC
+    Default: -server -Xms1g -Xmx4g -Xss256k -XX:+UseG1GC
     Type: String
   KeystorePassword:
     Description: A new Java keystore password. For better security the password that you specify will
