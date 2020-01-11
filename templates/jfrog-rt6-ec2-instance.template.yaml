@@ -193,6 +193,8 @@ Resources:
                         master_key: ${MasterKey}
                         extra_java_opts: ${ExtraJavaOptions}
                         artifactory_version: ${ArtifactoryVersion}
+                        artifactory_type: artifactory-pro
+                        rpm_repo_type: artifactory-pro
                 mode: "0400"
               /root/.vault_pass.txt:
                 content: !Sub |
