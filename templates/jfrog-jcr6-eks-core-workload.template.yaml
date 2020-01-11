@@ -158,13 +158,13 @@ Resources:
       KubeConfigPath: !Ref KubeConfigPath
       KubeConfigKmsContext: !Ref KubeConfigKmsContext
       Namespace: jfrog-artifactory
-      Name: quickstart-artifactory-ha
-      Chart: jfrog/artifactory-ha
+      Name: quickstart-artifactory-jcr
+      Chart: jfrog/artifactory-jcr
       RepoUrl: https://charts.jfrog.io
       ValueYaml: !Sub 
         - |
           artifactory:
-            name: artifactory-ha
+            name: artifactory-jcr
             image:
               repository: docker.bintray.io/jfrog/artifactory
               version: ${ArtifactoryVersion}
@@ -246,7 +246,7 @@ Resources:
       KubeConfigPath: !Ref KubeConfigPath
       KubeConfigKmsContext: !Ref KubeConfigKmsContext
       Namespace: jfrog-artifactory
-      Name: svc/quickstart-artifactory-ha-nginx
+      Name: svc/quickstart-artifactory-jcr-nginx
       JsonPath: '{.status.loadBalancer.ingress[0].hostname}'        
 Outputs:
   ArtifactoryUrl:
