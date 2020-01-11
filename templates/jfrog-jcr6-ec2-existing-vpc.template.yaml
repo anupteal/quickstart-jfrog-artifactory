@@ -280,20 +280,6 @@ Parameters:
     ConstraintDescription: Must contain valid instance type.
     Default: "t3.medium"
     Type: String
-  #NumberOfSecondary:
-  #  Description: The number of secondary Artifactory servers to complete your
-  #    HA deployment. To fit the Artifactory best practices, the minimum number
-  #    is two; the maximum is seven. Do not select more than instances than you
-  #    have licenses for.
-  #  AllowedValues:
-  #    - 2
-  #    - 3
-  #    - 4
-  #    - 5
-  #    - 6
-  #    - 7
-  #  Default: 2
-  #  Type: Number
   ArtifactoryVersion:
     Description: The version of Artifactory that you want to deploy into the Quick Start.
       Please see the release notes to select the version you want to deploy.
@@ -649,49 +635,6 @@ Resources:
         VolumeSize: !Ref VolumeSize
         ArtifactoryELB: !Ref ArtifactoryELB
         AnsibleVaultPass: !Ref AnsibleVaultPass
-#  ArtifactorySecondary:
-#    DependsOn: ArtifactoryMaster
-#    Type: AWS::CloudFormation::Stack
-#    Properties:
-#      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt6-ec2-instance.template.yaml'
-#      Parameters:
-#        PrivateSubnet1ID: !Ref PrivateSubnet1ID
-#        PrivateSubnet2ID: !Ref PrivateSubnet2ID
-#        MinScalingNodes: !Ref NumberOfSecondary
-#        MaxScalingNodes: !Ref NumberOfSecondary
-#        DeploymentTag: ArtifactorySecondary
-#        HostRole: !Ref ArtifactoryHostRole
-#        AmiId: !Ref AmiId
-#        ArtifactoryLicense1: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense1}}'
-#        ArtifactoryLicense2: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense2}}'
-#        ArtifactoryLicense3: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense3}}'
-#        ArtifactoryLicense4: !Sub '{{resolve:secretsmanager:${SMLicensesName}:SecretString:ArtifactoryLicense4}}'
-#        ArtifactoryServerName: !Ref ArtifactoryServerName
-#        CertificateDomain: !Ref CertificateDomain
-#        ArtifactoryIAMAcessKey: !GetAtt ArtifactoryCoreInfraStack.Outputs.IAMAcessKey
-#        SecretAccessKey: !GetAtt ArtifactoryCoreInfraStack.Outputs.SecretAccessKey
-#        ArtifactoryS3Bucket: !GetAtt ArtifactoryCoreInfraStack.Outputs.S3Bucket
-#        ArtifactoryDBEndpointAddress: !GetAtt ArtifactoryCoreInfraStack.Outputs.ArtifactoryDBEndpointAddress
-#        CertificateKey: !Ref CertificateKey
-#        Certificate: !Ref Certificate
-#        DBType: mysql
-#        DatabaseName: !Ref DatabaseName
-#        DatabaseUser: !Ref DatabaseUser
-#        DatabasePassword: !Ref DatabasePassword
-#        ArtifactoryPrimary: 'false'
-#        MasterKey: !Ref MasterKey
-#        ExtraJavaOptions: !Ref ExtraJavaOptions
-#        KeystorePassword: !Ref KeystorePassword
-#        ArtifactoryVersion: !Ref ArtifactoryVersion
-#        KeyPairName: !Ref KeyPairName
-#        HostProfile: !Ref ArtifactoryHostProfile
-#        SecurityGroups: !Ref ArtifactoryEC2SG
-#        InstanceType: !Ref InstanceType
-#        VolumeSize: !Ref VolumeSize
-#        ArtifactoryELB: !Ref ArtifactoryELB
-#        AnsibleVaultPass: !Ref AnsibleVaultPass
-#        QSS3BucketName: !Ref QSS3BucketName
-#        QSS3KeyPrefix: !Ref QSS3KeyPrefix
 
 Outputs:
   ArtifactoryUrl:
