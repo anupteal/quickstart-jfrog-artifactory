@@ -36,6 +36,7 @@ Metadata:
         Parameters:
           - ArtifactoryVersion
           - ArtifactoryDeploymentSize
+          - NumberOfSecondary 
           - SMLicensesName
           - Certificate
           - CertificateKey
@@ -57,6 +58,7 @@ Metadata:
         Parameters:
           - NodeInstanceType
           - NodeVolumeSize
+          - NumofSecondaryNodes
           - KubernetesVersion
       - Label:
           default: AWS Quick Start configuration
@@ -102,7 +104,9 @@ Metadata:
       BastionEnableX11Forwarding:
         default: Bastion enable X11 forwarding
       BastionOS:
-        default: Bastion operating system
+        default: Bastion operating system     
+      NumberOfSecondary:
+        default: Number of secondary pods
       ArtifactoryVersion:
         default: Artifactory version
       ArtifactoryDeploymentSize:
@@ -137,6 +141,8 @@ Metadata:
         default: Node instance type
       NodeVolumeSize:
         default: Node EBS volume size
+      NumofSecondaryNodes:
+        default: Number of secondary nodes
       KubernetesVersion:
         default: Kubernetes version
       QSS3BucketName:
@@ -228,7 +234,7 @@ Parameters:
       - t3.medium
       - t3.large
       - t3.xlarge
-    ConstraintDescription: Must contain valid instance type.
+    ConstraintDescription: Must be a valid EC2 instance type.
     Default: "t3.xlarge"
     Type: String
   NodeVolumeSize:
@@ -251,8 +257,8 @@ Parameters:
   BastionInstanceType:
     Description: The size of the bastion instances.
     AllowedValues:
+      - t3.nano
       - t3.micro
-      - t3.small
     Default: "t3.micro"
     Type: String
   BastionRootVolumeSize:
@@ -463,7 +469,7 @@ Resources:
   ArtifactoryEKSExistingVPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt6-eks-existing-vpc.template.yaml'
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-jcr6-eks-existing-vpc.template.yaml'
       Parameters:
         KeyPairName: !Ref KeyPairName
         AccessCIDR: !Ref AccessCIDR
@@ -488,6 +494,7 @@ Resources:
         BastionEnableX11Forwarding: !Ref BastionEnableX11Forwarding
         ArtifactoryVersion: !Ref ArtifactoryVersion
         ArtifactoryDeploymentSize: !Ref ArtifactoryDeploymentSize
+        NumberOfSecondary: 0
         SMLicensesName: !Ref SMLicensesName
         Certificate: !Ref Certificate
         CertificateKey: !Ref CertificateKey
@@ -504,6 +511,7 @@ Resources:
         KubernetesVersion: !Ref KubernetesVersion
         NodeInstanceType: !Ref NodeInstanceType
         NodeVolumeSize: !Ref NodeVolumeSize
+        NumofSecondaryNodes: 0
         QSS3BucketName: !Ref QSS3BucketName
         QSS3KeyPrefix: !Ref QSS3KeyPrefix
         LambdaZipsBucketName: !Ref LambdaZipsBucketName

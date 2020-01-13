@@ -118,6 +118,8 @@ Metadata:
         default: Artifactory version
       ArtifactoryDeploymentSize:
         default: Artifactory deployment size
+      NumberOfSecondary:
+        default: Number of secondary pods        
       SMLicensesName:
         default: Artifactory licenses secret name
       Certificate:
@@ -148,6 +150,8 @@ Metadata:
         default: Node instance type
       NodeVolumeSize:
         default: Node EBS volume size
+      NumofSecondaryNodes:
+        default: Number of secondary nodes
       KubernetesVersion:
         default: Kubernetes version
       QSS3BucketName:
@@ -239,6 +243,13 @@ Parameters:
     Description: The size of EBS volumes for master node instances, in GB.
     Default: 200
     Type: String
+  NumofSecondaryNodes:
+    Description: The initial number of secondary node instances to create.
+      If you do not have large enough instances to boot the number of secondary pods, the deployment will fail.
+    AllowedValues:
+      - 0
+    Default: 0
+    Type: Number
   KubernetesVersion:
     Description: The Kubernetes control plane version.
     AllowedValues: [ "1.13", "1.12", "1.11" ]
@@ -255,8 +266,8 @@ Parameters:
   BastionInstanceType:
     Description: The size of the bastion instances.
     AllowedValues:
+      - t3.nano
       - t3.micro
-      - t3.small
     Default: "t3.micro"
     Type: String
   BastionRootVolumeSize:
@@ -291,6 +302,14 @@ Parameters:
       - "SUSE-SLES-15-HVM"
     Default: "Amazon-Linux-HVM"
     Type: String
+  NumberOfSecondary:
+    Description: Number of secondary Artifactory pods to complete your HA deployment. 
+      Minimum number of 2 to fit the Artifactory best practices. Do not select more than
+      you license for.
+    AllowedValues:
+      - 0
+    Default: 0
+    Type: Number      
   ArtifactoryVersion:
     Description: The version of Artifactory that you want to deploy into the Quick Start.
       Please see the release notes to select the version you want to deploy.
@@ -477,55 +496,55 @@ Resources:
         QSS3BucketName: !Ref QSS3BucketName
         QSS3KeyPrefix: !Sub "${QSS3KeyPrefix}submodules/quickstart-amazon-eks/"
         LambdaZipsBucketName: !Ref LambdaZipsBucketName
-  #ArtifactorySecondaryNodesStack:
-  #  Type: "AWS::CloudFormation::Stack"
-  #  Properties:
-  #    TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-amazon-eks/templates/amazon-eks-nodegroup.template.yaml'
-  #    Parameters:
-  #      KeyPairName: !Ref KeyPairName
-  #      PrivateSubnet1ID: !Ref PrivateSubnet1ID
-  #      PrivateSubnet2ID: !Ref PrivateSubnet2ID
-  #      PrivateSubnet3ID: !Ref PrivateSubnet3ID
-  #      VPCID: !Ref VPCID
-  #      NodeInstanceType: !Ref NodeInstanceType
-  #      NumberOfNodes: 0 # no secondary nodes for jcr
-  #      NodeGroupName: "artifactory-secondary"
-  #      NodeVolumeSize: !Ref NodeVolumeSize
-  #      EKSControlPlane: !GetAtt EKSStack.Outputs.EKSClusterName
-  #      ControlPlaneSecurityGroup: !GetAtt EKSStack.Outputs.ControlPlaneSecurityGroup
-  #      NodeInstanceProfile: !GetAtt EKSStack.Outputs.NodeInstanceProfile
-  #      NodeInstanceRoleName: !GetAtt EKSStack.Outputs.NodeInstanceRoleName
-  #      KubernetesVersion: !Ref KubernetesVersion
-  #      BootstrapArguments: "--kubelet-extra-args '--node-labels=partition=artifactory-secondary'"
+  ArtifactorySecondaryNodesStack:
+    Type: "AWS::CloudFormation::Stack"
+    Properties:
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-amazon-eks/templates/amazon-eks-nodegroup.template.yaml'
+      Parameters:
+        KeyPairName: !Ref KeyPairName
+        PrivateSubnet1ID: !Ref PrivateSubnet1ID
+        PrivateSubnet2ID: !Ref PrivateSubnet2ID
+        PrivateSubnet3ID: !Ref PrivateSubnet3ID
+        VPCID: !Ref VPCID
+        NodeInstanceType: !Ref NodeInstanceType
+        NumberOfNodes: !Ref NumofSecondaryNodes
+        NodeGroupName: "artifactory-secondary"
+        NodeVolumeSize: !Ref NodeVolumeSize
+        EKSControlPlane: !GetAtt EKSStack.Outputs.EKSClusterName
+        ControlPlaneSecurityGroup: !GetAtt EKSStack.Outputs.ControlPlaneSecurityGroup
+        NodeInstanceProfile: !GetAtt EKSStack.Outputs.NodeInstanceProfile
+        NodeInstanceRoleName: !GetAtt EKSStack.Outputs.NodeInstanceRoleName
+        KubernetesVersion: !Ref KubernetesVersion
+        BootstrapArguments: "--kubelet-extra-args '--node-labels=partition=artifactory-secondary'"        
   # Allow the bastion host to SSH into the secondary node pools
-  #BastionToRegularIngress:
-  #  Type: "AWS::EC2::SecurityGroupIngress"
-  #  Properties:
-  #    Description: Allow SSH from Bastion server to Regular Nodes
-  #    GroupId: !GetAtt ArtifactorySecondaryNodesStack.Outputs.EKSNodeSecurityGroup
-  #    SourceSecurityGroupId: !GetAtt EKSStack.Outputs.BastionSecurityGroup
-  #    IpProtocol: tcp
-  #    ToPort: 22
-  #    FromPort: 22
+  BastionToRegularIngress:
+    Type: "AWS::EC2::SecurityGroupIngress"
+    Properties:
+      Description: Allow SSH from Bastion server to Regular Nodes
+      GroupId: !GetAtt ArtifactorySecondaryNodesStack.Outputs.EKSNodeSecurityGroup
+      SourceSecurityGroupId: !GetAtt EKSStack.Outputs.BastionSecurityGroup
+      IpProtocol: tcp
+      ToPort: 22
+      FromPort: 22
   # Allow the secondary node pools to bidirectionally communicate with "initial" (master) nodes
-  #RegularToMasterIngress:
-  #  Type: AWS::EC2::SecurityGroupIngress
-  #  Properties:
-  #    Description: Allows regular nodes to communicate with master nodes
-  #    GroupId: !GetAtt EKSStack.Outputs.NodeGroupSecurityGroup
-  #    SourceSecurityGroupId: !GetAtt ArtifactorySecondaryNodesStack.Outputs.EKSNodeSecurityGroup
-  #    IpProtocol: '-1'
-  #    FromPort: 0
-  #    ToPort: 65535
-  #MasterToRegularIngress:
-  #  Type: AWS::EC2::SecurityGroupIngress
-  #  Properties:
-  #    Description: Allows master nodes to communicate with regular agent nodes
-  #    GroupId: !GetAtt ArtifactorySecondaryNodesStack.Outputs.EKSNodeSecurityGroup
-  #    SourceSecurityGroupId: !GetAtt EKSStack.Outputs.NodeGroupSecurityGroup
-  #    IpProtocol: '-1'
-  #    FromPort: 0
-  #    ToPort: 65535
+  RegularToMasterIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties: 
+      Description: Allows regular nodes to communicate with master nodes
+      GroupId: !GetAtt EKSStack.Outputs.NodeGroupSecurityGroup
+      SourceSecurityGroupId: !GetAtt ArtifactorySecondaryNodesStack.Outputs.EKSNodeSecurityGroup
+      IpProtocol: '-1'
+      FromPort: 0
+      ToPort: 65535
+  MasterToRegularIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties: 
+      Description: Allows master nodes to communicate with regular agent nodes
+      GroupId: !GetAtt ArtifactorySecondaryNodesStack.Outputs.EKSNodeSecurityGroup
+      SourceSecurityGroupId: !GetAtt EKSStack.Outputs.NodeGroupSecurityGroup
+      IpProtocol: '-1'
+      FromPort: 0
+      ToPort: 65535
   ArtifactoryCoreInfraStack:
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -546,6 +565,7 @@ Resources:
         DatabaseInstance: !Ref DatabaseInstance
         DatabaseName: !Ref DatabaseName
   ArtifactoryCoreStack:
+    DependsOn: ArtifactorySecondaryNodesStack
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: !Sub "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-jcr6-eks-core-workload.template.yaml"
