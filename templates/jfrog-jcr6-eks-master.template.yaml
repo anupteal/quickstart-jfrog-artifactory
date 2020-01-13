@@ -463,7 +463,7 @@ Resources:
   ArtifactoryEKSExistingVPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt6-eks-existing-vpc.template.yaml'
+      TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-jcr6-eks-existing-vpc.template.yaml'
       Parameters:
         KeyPairName: !Ref KeyPairName
         AccessCIDR: !Ref AccessCIDR

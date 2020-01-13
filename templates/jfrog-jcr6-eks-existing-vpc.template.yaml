@@ -529,7 +529,7 @@ Resources:
   ArtifactoryCoreInfraStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt-core-infrastructure.template.yaml"
+      TemplateURL: !Sub "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-jcr-core-infrastructure.template.yaml"
       Parameters:
         VPCID: !Ref VPCID
         VPCCIDR: !Ref VPCCIDR
@@ -549,7 +549,7 @@ Resources:
     DependsOn: ArtifactorySecondaryNodesStack
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: !Sub "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-rt6-eks-core-workload.template.yaml"
+      TemplateURL: !Sub "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/jfrog-jcr6-eks-core-workload.template.yaml"
       Parameters:
         KubeManifestLambdaArn: !GetAtt EKSStack.Outputs.KubeManifestLambdaArn
         HelmLambdaArn: !GetAtt EKSStack.Outputs.HelmLambdaArn
