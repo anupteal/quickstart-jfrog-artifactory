@@ -29,7 +29,7 @@
     },
     {
         "ParameterKey": "DatabaseInstance",
-        "ParameterValue": "db.m5.large"
+        "ParameterValue": "db.t3.xlarge"
     },
     {
         "ParameterKey": "ArtifactoryVersion",

@@ -225,11 +225,10 @@ Parameters:
   NodeInstanceType:
     Description: The Amazon EC2 instance type for the nodes hosting the Kubernetes pods.
     AllowedValues:
-      - t3.medium
-      - t3.large
-      - t3.xlarge
+      - m3.xlarge
+      - m3.2xlarge
     ConstraintDescription: Must contain valid instance type.
-    Default: "t3.xlarge"
+    Default: "m3.2xlarge"
     Type: String
   NodeVolumeSize:
     Description: The size of EBS volumes for master node instances, in GB.
@@ -251,6 +250,7 @@ Parameters:
   BastionInstanceType:
     Description: The size of the bastion instances.
     AllowedValues:
+      - t3.nano
       - t3.micro
       - t3.small
     Default: "t3.micro"
@@ -375,23 +375,11 @@ Parameters:
   DatabaseInstance:
     Description: The size of the database to be deployed as part of the Quick Start.
     AllowedValues:
-      - db.m3.medium
-      - db.m3.large
-      - db.m3.xlarge
-      - db.m3.2xlarge
-      - db.m4.large
-      - db.m4.xlarge
-      - db.m4.2xlarge
-      - db.m4.10xlarge
-      - db.m4.16xlarge
-      - db.m5.large
-      - db.m5.xlarge
-      - db.m5.2xlarge
-      - db.m5.4xlarge
-      - db.m5.12xlarge
-      - db.m5.24xlarge
+      - db.t3.medium
+      - db.t3.large
+      - db.t3.xlarge
     ConstraintDescription: Must be a valid database Instance Type.
-    Default: db.m4.large
+    Default: db.t3.xlarge
     Type: String
   DBAllocatedStorage:
     Description: The size in GB of the available storage for the database instance.
