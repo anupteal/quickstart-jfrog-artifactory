@@ -242,8 +242,17 @@ Resources:
             limits_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsCpu ],
             java_xms: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXms ],
             java_xmx: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXmx ] }
-  ArtifactoryELBHostName:
+  ArtifactoryWaitHandle:
+    Type: AWS::CloudFormation::WaitConditionHandle
+    Properties: {}
+  ArtifactoryWaitCondition:
+    Type: AWS::CloudFormation::WaitCondition
     DependsOn: ArtifactoryDeployment
+    Properties:
+      Handle: !Ref ArtifactoryWaitHandle
+      Timeout: '600'
+  ArtifactoryELBHostName:
+    DependsOn: ArtifactoryWaitCondition
     Type: "Custom::KubeGet"
     Version: '1.0'
     Properties:
