@@ -166,12 +166,12 @@ Resources:
           postgresql:
             enabled: false
           artifactory:
-            postgresql:
-              enabled: false
             artifactory:
+              postgresql:
+                enabled: false
               name: artifactory-jcr
               image:
-                repository: docker.bintray.io/jfrog/artifactory
+                repository: docker.bintray.io/jfrog/artifactory-jcr
                 version: ${ArtifactoryVersion}
                 pullPolicy: Always
               deleteDBPropertiesOnStartup: true
