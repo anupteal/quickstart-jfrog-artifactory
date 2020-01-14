@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: "Deploys JCR into an existing Kubernetes cluster"
 Parameters:
   KubeManifestLambdaArn:
-    Type: String    
+    Type: String
   HelmLambdaArn:
     Type: String
   KubeConfigPath:
@@ -57,25 +57,25 @@ Mappings:
   DeploymentSize:
     Large:
       requestsMem: "6Gi"
-      requestsCpu: "2"
+      requestsCpu: "4"
       limitsMem: "10Gi"
-      limitsCpu: "4"
-      javaOptsXms: "4g"
-      javaOptsXmx: "6g"
+      limitsCpu: "8"
+      javaOptsXms: "6g"
+      javaOptsXmx: "8g"
     Medium:
       requestsMem: "4Gi"
       requestsCpu: "2"
       limitsMem: "8Gi"
-      limitsCpu: "4"
-      javaOptsXms: "2g"
-      javaOptsXmx: "4g"
+      limitsCpu: "6"
+      javaOptsXms: "4g"
+      javaOptsXmx: "6g"
     Small:
-      requestsMem: "2Gi"
-      requestsCpu: "1"
-      limitsMem: "4Gi"
-      limitsCpu: "2"
-      javaOptsXms: "1g"
-      javaOptsXmx: "2g"
+      requestsMem: "4Gi"
+      requestsCpu: "2"
+      limitsMem: "6Gi"
+      limitsCpu: "4"
+      javaOptsXms: "4g"
+      javaOptsXmx: "4g"
 Resources:
   NameSpace:
     Type: "Custom::KubeManifest"
@@ -108,11 +108,11 @@ Resources:
           labels:
             app: artifactory
             chart: artifactory
-        type: kubernetes.io/tls            
-        data: 
-          tls.crt: 
+        type: kubernetes.io/tls
+        data:
+          tls.crt:
             Fn::Base64:
-              !Join [ "\n", "Fn::Split": ["|", !Ref Certificate ]] 
+              !Join [ "\n", "Fn::Split": ["|", !Ref Certificate ]]
           tls.key:
             Fn::Base64:
               !Join [ "\n", "Fn::Split": ["|", !Ref CertificateKey ]]
@@ -133,23 +133,23 @@ Resources:
           labels:
             app: artifactory
             chart: artifactory
-        type: Opaque            
-        stringData: 
-          art.lic: !Sub 
+        type: Opaque
+        stringData:
+          art.lic: !Sub
             >-
             ${ArtifactoryLicense1}
-  
-  
+
+
             ${ArtifactoryLicense2}
-          
-          
+
+
             ${ArtifactoryLicense3}
-  
-  
+
+
             ${ArtifactoryLicense4}
   ArtifactoryDeployment:
     Type: "Custom::Helm"
-    DependsOn: 
+    DependsOn:
       - LicenseStore
       - CertificateStore
     Version: '1.0'
@@ -158,19 +158,18 @@ Resources:
       KubeConfigPath: !Ref KubeConfigPath
       KubeConfigKmsContext: !Ref KubeConfigKmsContext
       Namespace: jfrog-artifactory
-      Name: quickstart-artifactory-jcr
+      Name: quickstart-artifactory-ha
       Chart: jfrog/artifactory-jcr
       RepoUrl: https://charts.jfrog.io
-      ValueYaml: !Sub 
+      ValueYaml: !Sub
         - |
           postgresql:
             enabled: false
           artifactory:
-              postgresql:
-                enabled: false
+            artifactory:
               name: artifactory-jcr
               image:
-                repository: docker.bintray.io/jfrog/artifactory
+                repository: docker.bintray.io/jfrog/artifactory-jcr
                 version: ${ArtifactoryVersion}
                 pullPolicy: Always
               deleteDBPropertiesOnStartup: true
@@ -202,7 +201,7 @@ Resources:
                 nodeSelector:
                   partition: artifactory-primary
               node:
-                replicaCount: 0
+                replicaCount: 1
                 resources:
                   requests:
                     memory: "${requests_memory}"
@@ -220,17 +219,19 @@ Resources:
                   ## Valid values are "soft" or "hard"; any other value indicates no anti-affinity
                   type: "soft"
                   topologyKey: "kubernetes.io/hostname"
-            database:
-              type: mysql
-              url: jdbc:mysql://${ArtifactoryDBEndpointAddress}:3306/${DatabaseName}?characterEncoding=UTF-8&elideSetAutoCommits=true #&verifyServerCertificate=true&useSSL=true&requireSSL=true
-              user: ${DatabaseUser}
-              password: ${DatabasePassword}
-            nginx:
-              image:
-                version: ${ArtifactoryVersion}
-              tlsSecretName: artifactory-nginx-tls
-              nodeSelector:
-                partition: artifactory-primary
+              postgresql:
+                enabled: false
+              database:
+                type: mysql
+                url: jdbc:mysql://${ArtifactoryDBEndpointAddress}:3306/${DatabaseName}?characterEncoding=UTF-8&elideSetAutoCommits=true #&verifyServerCertificate=true&useSSL=true&requireSSL=true
+                user: ${DatabaseUser}
+                password: ${DatabasePassword}
+              nginx:
+                image:
+                  version: ${ArtifactoryVersion}
+                  tlsSecretName: artifactory-nginx-tls
+                nodeSelector:
+                  partition: artifactory-primary
               service:
                 loadBalancerSourceRanges:  [ "${AccessCIDR}" ]
         - { requests_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsMem],
@@ -248,8 +249,8 @@ Resources:
       KubeConfigPath: !Ref KubeConfigPath
       KubeConfigKmsContext: !Ref KubeConfigKmsContext
       Namespace: jfrog-artifactory
-      Name: svc/quickstart-artifactory-jcr-nginx
-      JsonPath: '{.status.loadBalancer.ingress[0].hostname}'        
+      Name: svc/quickstart-artifactory-ha-nginx
+      JsonPath: '{.status.loadBalancer.ingress[0].hostname}'
 Outputs:
   ArtifactoryUrl:
     Value: !Sub https://${IngressHostName}
