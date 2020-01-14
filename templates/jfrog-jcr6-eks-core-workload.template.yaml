@@ -163,7 +163,11 @@ Resources:
       RepoUrl: https://charts.jfrog.io
       ValueYaml: !Sub 
         - |
+          postgresql:
+            enabled: false
           artifactory:
+            postgresql:
+              enabled: false
             artifactory:
               name: artifactory-jcr
               image:
@@ -217,8 +221,6 @@ Resources:
                   ## Valid values are "soft" or "hard"; any other value indicates no anti-affinity
                   type: "soft"
                   topologyKey: "kubernetes.io/hostname"
-            postgresql:
-              enabled: false
             database:
               type: mysql
               url: jdbc:mysql://${ArtifactoryDBEndpointAddress}:3306/${DatabaseName}?characterEncoding=UTF-8&elideSetAutoCommits=true #&verifyServerCertificate=true&useSSL=true&requireSSL=true
@@ -232,12 +234,12 @@ Resources:
                 partition: artifactory-primary
               service:
                 loadBalancerSourceRanges:  [ "${AccessCIDR}" ]
-          - { requests_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsMem],
-              requests_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsCpu],
-              limits_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsMem ],
-              limits_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsCpu ],
-              java_xms: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXms ],
-              java_xmx: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXmx ] }
+        - { requests_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsMem],
+            requests_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsCpu],
+            limits_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsMem ],
+            limits_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsCpu ],
+            java_xms: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXms ],
+            java_xmx: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXmx ] }
   IngressHostName:
     DependsOn: ArtifactoryDeployment
     Type: "Custom::KubeGet"
