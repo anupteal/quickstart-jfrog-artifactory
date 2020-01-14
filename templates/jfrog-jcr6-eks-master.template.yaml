@@ -306,7 +306,7 @@ Parameters:
       - Small
       - Medium
       - Large
-    Default: Medium
+    Default: Small
     Type: String
   SMLicensesName:
     Description: The secret name created in AWS Secrets Manager which contains the Artifactory licenses.

@@ -164,79 +164,80 @@ Resources:
       ValueYaml: !Sub 
         - |
           artifactory:
-            name: artifactory-jcr
-            image:
-              repository: docker.bintray.io/jfrog/artifactory
-              version: ${ArtifactoryVersion}
-              pullPolicy: Always
-            deleteDBPropertiesOnStartup: true
-            license:
-              secret: artifactory-cluster-license
-              dataKey: art.lic
-            masterKey: ${MasterKey}
-            preStartCommand: "wget -O /opt/jfrog/artifactory/tomcat/lib/mysql-connector-java-5.1.41.jar https://jcenter.bintray.com/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar"
-            persistence:
+            artifactory:
+              name: artifactory-jcr
+              image:
+                repository: docker.bintray.io/jfrog/artifactory
+                version: ${ArtifactoryVersion}
+                pullPolicy: Always
+              deleteDBPropertiesOnStartup: true
+              license:
+                secret: artifactory-cluster-license
+                dataKey: art.lic
+              masterKey: ${MasterKey}
+              preStartCommand: "wget -O /opt/jfrog/artifactory/tomcat/lib/mysql-connector-java-5.1.41.jar https://jcenter.bintray.com/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar"
+              persistence:
+                enabled: false
+                type: aws-s3
+                awsS3:
+                  endpoint: s3.${AWS::Region}.amazonaws.com
+                  region: ${AWS::Region}
+                  identity: ${ArtifactoryIAMAcessKey}
+                  credential: ${SecretAccessKey}
+                  bucketName: ${ArtifactoryS3Bucket}
+              primary:
+                resources:
+                  requests:
+                    memory: "${requests_memory}"
+                    cpu: "${requests_cpu}"
+                  limits:
+                    memory: "${limits_memory}"
+                    cpu: "${limits_cpu}"
+                javaOpts:
+                  xms: "${java_xms}"
+                  xmx: "${java_xmx}"
+                nodeSelector:
+                  partition: artifactory-primary
+              node:
+                replicaCount: 0
+                resources:
+                  requests:
+                    memory: "${requests_memory}"
+                    cpu: "${requests_cpu}"
+                  limits:
+                    memory: "${limits_memory}"
+                    cpu: "${limits_cpu}"
+                javaOpts:
+                  xms: "${java_xms}"
+                  xmx: "${java_xmx}"
+                nodeSelector:
+                  partition: artifactory-secondary
+                ## Only used if "affinity" is empty
+                podAntiAffinity:
+                  ## Valid values are "soft" or "hard"; any other value indicates no anti-affinity
+                  type: "soft"
+                  topologyKey: "kubernetes.io/hostname"
+            postgresql:
               enabled: false
-              type: aws-s3
-              awsS3:
-                endpoint: s3.${AWS::Region}.amazonaws.com
-                region: ${AWS::Region}
-                identity: ${ArtifactoryIAMAcessKey}
-                credential: ${SecretAccessKey}
-                bucketName: ${ArtifactoryS3Bucket}
-            primary:
-              resources:
-                requests:
-                  memory: "${requests_memory}"
-                  cpu: "${requests_cpu}"
-                limits:
-                  memory: "${limits_memory}"
-                  cpu: "${limits_cpu}"
-              javaOpts:
-                xms: "${java_xms}"
-                xmx: "${java_xmx}"
+            database:
+              type: mysql
+              url: jdbc:mysql://${ArtifactoryDBEndpointAddress}:3306/${DatabaseName}?characterEncoding=UTF-8&elideSetAutoCommits=true #&verifyServerCertificate=true&useSSL=true&requireSSL=true
+              user: ${DatabaseUser}
+              password: ${DatabasePassword}
+            nginx:
+              image:
+                version: ${ArtifactoryVersion}
+              tlsSecretName: artifactory-nginx-tls
               nodeSelector:
                 partition: artifactory-primary
-            node:
-              replicaCount: 0
-              resources:
-                requests:
-                  memory: "${requests_memory}"
-                  cpu: "${requests_cpu}"
-                limits:
-                  memory: "${limits_memory}"
-                  cpu: "${limits_cpu}"
-              javaOpts:
-                xms: "${java_xms}"
-                xmx: "${java_xmx}"
-              nodeSelector:
-                partition: artifactory-secondary
-              ## Only used if "affinity" is empty
-              podAntiAffinity:
-                ## Valid values are "soft" or "hard"; any other value indicates no anti-affinity
-                type: "soft"
-                topologyKey: "kubernetes.io/hostname"
-          postgresql:
-            enabled: false
-          database:
-            type: mysql
-            url: jdbc:mysql://${ArtifactoryDBEndpointAddress}:3306/${DatabaseName}?characterEncoding=UTF-8&elideSetAutoCommits=true #&verifyServerCertificate=true&useSSL=true&requireSSL=true
-            user: ${DatabaseUser}
-            password: ${DatabasePassword}
-          nginx:
-            image:
-              version: ${ArtifactoryVersion}
-            tlsSecretName: artifactory-nginx-tls
-            nodeSelector:
-              partition: artifactory-primary
-            service:
-              loadBalancerSourceRanges:  [ "${AccessCIDR}" ]
-        - { requests_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsMem],
-            requests_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsCpu],
-            limits_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsMem ],
-            limits_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsCpu ],
-            java_xms: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXms ],
-            java_xmx: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXmx ] }
+              service:
+                loadBalancerSourceRanges:  [ "${AccessCIDR}" ]
+          - { requests_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsMem],
+              requests_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsCpu],
+              limits_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsMem ],
+              limits_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsCpu ],
+              java_xms: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXms ],
+              java_xmx: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXmx ] }
   IngressHostName:
     DependsOn: ArtifactoryDeployment
     Type: "Custom::KubeGet"
