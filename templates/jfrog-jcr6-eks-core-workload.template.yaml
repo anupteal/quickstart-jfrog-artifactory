@@ -251,8 +251,8 @@ Resources:
       KubeConfigPath: !Ref KubeConfigPath
       KubeConfigKmsContext: !Ref KubeConfigKmsContext
       Namespace: jfrog-artifactory
-      Name: svc/quickstart-artifactory-jcr-nginx
-      #JsonPath: '{.status.loadBalancer.ingress[0].hostname}'
+      Name: svc/quickstart-artifactory-jcr-artifactory-nginx
+      JsonPath: '{.status.loadBalancer.ingress[0].hostname}'
 Outputs:
   ArtifactoryUrl:
     Value: !Sub https://${ArtifactoryELBHostName}
