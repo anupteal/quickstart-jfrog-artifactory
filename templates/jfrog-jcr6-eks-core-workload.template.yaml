@@ -167,6 +167,11 @@ Resources:
             enabled: false
           artifactory:
             artifactory:
+<<<<<<< HEAD
+=======
+              postgresql:
+                enabled: false
+>>>>>>> ede67fb849e0f322bb811f309eca24ba45a0e098
               name: artifactory-jcr
               image:
                 repository: docker.bintray.io/jfrog/artifactory-jcr
