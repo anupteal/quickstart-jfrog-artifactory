@@ -242,23 +242,8 @@ Resources:
             limits_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsCpu ],
             java_xms: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXms ],
             java_xmx: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXmx ] }
-  ArtifactoryNameSpace:
-    DependsOn: ArtifactoryDeployment
-    Type: "Custom::KubeManifest"
-    Version: '1.0'
-    Properties:
-      ServiceToken: !Ref KubeManifestLambdaArn
-      KubeConfigPath: !Ref KubeConfigPath
-      KubeConfigKmsContext: !Ref KubeConfigKmsContext
-      Manifest:
-        kind: Namespace
-        apiVersion: v1
-        metadata:
-          name: jfrog-artifactory
-          labels:
-            app: artifactory
   ArtifactoryELBHostName:
-    DependsOn: ArtifactoryNameSpace
+    DependsOn: ArtifactoryDeployment
     Type: "Custom::KubeGet"
     Version: '1.0'
     Properties:
@@ -267,7 +252,7 @@ Resources:
       KubeConfigKmsContext: !Ref KubeConfigKmsContext
       Namespace: jfrog-artifactory
       Name: svc/quickstart-artifactory-jcr-nginx
-      JsonPath: '{.status.loadBalancer.ingress[0].hostname}'
+      #JsonPath: '{.status.loadBalancer.ingress[0].hostname}'
 Outputs:
   ArtifactoryUrl:
     Value: !Sub https://${ArtifactoryELBHostName}
