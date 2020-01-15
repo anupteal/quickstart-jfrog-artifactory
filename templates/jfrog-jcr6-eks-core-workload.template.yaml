@@ -242,17 +242,23 @@ Resources:
             limits_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsCpu ],
             java_xms: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXms ],
             java_xmx: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXmx ] }
-  ArtifactoryWaitHandle:
-    Type: AWS::CloudFormation::WaitConditionHandle
-    Properties: {}
-  ArtifactoryWaitCondition:
-    Type: AWS::CloudFormation::WaitCondition
+  ArtifactoryNameSpace:
     DependsOn: ArtifactoryDeployment
+    Type: "Custom::KubeManifest"
+    Version: '1.0'
     Properties:
-      Handle: !Ref ArtifactoryWaitHandle
-      Timeout: '600'
+      ServiceToken: !Ref KubeManifestLambdaArn
+      KubeConfigPath: !Ref KubeConfigPath
+      KubeConfigKmsContext: !Ref KubeConfigKmsContext
+      Manifest:
+        kind: Namespace
+        apiVersion: v1
+        metadata:
+          name: jfrog-artifactory
+          labels:
+            app: artifactory
   ArtifactoryELBHostName:
-    DependsOn: ArtifactoryWaitCondition
+    DependsOn: ArtifactoryNameSpace
     Type: "Custom::KubeGet"
     Version: '1.0'
     Properties:
