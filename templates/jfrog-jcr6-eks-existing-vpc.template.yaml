@@ -480,55 +480,6 @@ Resources:
         QSS3BucketName: !Ref QSS3BucketName
         QSS3KeyPrefix: !Sub "${QSS3KeyPrefix}submodules/quickstart-amazon-eks/"
         LambdaZipsBucketName: !Ref LambdaZipsBucketName
-  #ArtifactorySecondaryNodesStack:
-  #  Type: "AWS::CloudFormation::Stack"
-  #  Properties:
-  #    TemplateURL: !Sub 'https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-amazon-eks/templates/amazon-eks-nodegroup.template.yaml'
-  #    Parameters:
-  #      KeyPairName: !Ref KeyPairName
-  #      PrivateSubnet1ID: !Ref PrivateSubnet1ID
-  #      PrivateSubnet2ID: !Ref PrivateSubnet2ID
-  #      PrivateSubnet3ID: !Ref PrivateSubnet3ID
-  #      VPCID: !Ref VPCID
-  #      NodeInstanceType: !Ref NodeInstanceType
-  #      NumberOfNodes: 0 # no secondary nodes for jcr
-  #      NodeGroupName: "artifactory-secondary"
-  #      NodeVolumeSize: !Ref NodeVolumeSize
-  #      EKSControlPlane: !GetAtt EKSStack.Outputs.EKSClusterName
-  #      ControlPlaneSecurityGroup: !GetAtt EKSStack.Outputs.ControlPlaneSecurityGroup
-  #      NodeInstanceProfile: !GetAtt EKSStack.Outputs.NodeInstanceProfile
-  #      NodeInstanceRoleName: !GetAtt EKSStack.Outputs.NodeInstanceRoleName
-  #      KubernetesVersion: !Ref KubernetesVersion
-  #      BootstrapArguments: "--kubelet-extra-args '--node-labels=partition=artifactory-secondary'"
-  # Allow the bastion host to SSH into the secondary node pools
-  #BastionToRegularIngress:
-  #  Type: "AWS::EC2::SecurityGroupIngress"
-  #  Properties:
-  #    Description: Allow SSH from Bastion server to Regular Nodes
-  #    GroupId: !GetAtt ArtifactorySecondaryNodesStack.Outputs.EKSNodeSecurityGroup
-  #    SourceSecurityGroupId: !GetAtt EKSStack.Outputs.BastionSecurityGroup
-  #    IpProtocol: tcp
-  #    ToPort: 22
-  #    FromPort: 22
-  # Allow the secondary node pools to bidirectionally communicate with "initial" (master) nodes
-  #RegularToMasterIngress:
-  #  Type: AWS::EC2::SecurityGroupIngress
-  #  Properties:
-  #    Description: Allows regular nodes to communicate with master nodes
-  #    GroupId: !GetAtt EKSStack.Outputs.NodeGroupSecurityGroup
-  #    SourceSecurityGroupId: !GetAtt ArtifactorySecondaryNodesStack.Outputs.EKSNodeSecurityGroup
-  #    IpProtocol: '-1'
-  #    FromPort: 0
-  #    ToPort: 65535
-  #MasterToRegularIngress:
-  #  Type: AWS::EC2::SecurityGroupIngress
-  #  Properties:
-  #    Description: Allows master nodes to communicate with regular agent nodes
-  #    GroupId: !GetAtt ArtifactorySecondaryNodesStack.Outputs.EKSNodeSecurityGroup
-  #    SourceSecurityGroupId: !GetAtt EKSStack.Outputs.NodeGroupSecurityGroup
-  #    IpProtocol: '-1'
-  #    FromPort: 0
-  #    ToPort: 65535
   ArtifactoryCoreInfraStack:
     Type: AWS::CloudFormation::Stack
     Properties:

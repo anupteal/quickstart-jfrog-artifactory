@@ -33,7 +33,7 @@
     },
     {
         "ParameterKey": "ArtifactoryVersion",
-        "ParameterValue": "6.16.0"
+        "ParameterValue": "6.17.0"
     },
     {
         "ParameterKey": "KeystorePassword",
