@@ -1,8 +1,8 @@
 project:
   name: quickstart-jfrog-artifactory
   owner: quickstart-eng@amazon.com
-  lambda_source_path: submodules/quickstart-amazon-eks/functions/source
-  lambda_zip_path: submodules/quickstart-amazon-eks/functions/packages
+  # lambda_source_path: submodules/quickstart-amazon-eks/functions/source
+  # lambda_zip_path: submodules/quickstart-amazon-eks/functions/packages
   s3_object_acl: public-read
   s3_regional_buckets: True
   regions:
