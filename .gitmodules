@@ -11,3 +11,6 @@
 	path = submodules/quickstart-amazon-eks
 	url = git@github.com:aws-quickstart/quickstart-amazon-eks.git
 	branch = master
+[submodule "submodules/quickstart-helm-resource-provider"]
+	path = submodules/quickstart-helm-resource-provider
+	url = git@github.com:aws-quickstart/quickstart-helm-resource-provider.git

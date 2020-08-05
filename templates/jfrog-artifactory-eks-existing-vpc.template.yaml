@@ -687,6 +687,8 @@ Resources:
         QSS3BucketName: !Ref QsS3BucketName
         QSS3KeyPrefix: !Sub "${QsS3KeyPrefix}submodules/quickstart-amazon-eks/"
         QSS3BucketRegion: !Ref QsS3BucketRegion
+        CleanupSecurityGroupDependenciesLambdaArn: !GetAtt EksStack.Outputs.CleanupSecurityGroupDependenciesLambdaArn
+        NodeSGFunctionArn: !GetAtt EksStack.Outputs.NodeSGFunctionArn
         LambdaZipsBucketName: !Ref LambdaZipsBucketName
 
   ArtifactorySecondaryNodesStack:
@@ -784,10 +786,10 @@ Resources:
         - S3Bucket: !If [UsingDefaultBucket, !Sub '${QsS3BucketName}-${AWS::Region}', !Ref 'QsS3BucketName']
           S3Region: !If [UsingDefaultBucket, !Ref 'AWS::Region', !Ref 'QsS3BucketRegion']
       Parameters:
-        KubeManifestLambdaArn: !GetAtt EksStack.Outputs.KubeManifestLambdaArn
-        HelmLambdaArn: !GetAtt EksStack.Outputs.HelmLambdaArn
-        EksClusterName: !GetAtt EksStack.Outputs.EKSClusterName
-        KubeGetLambdaArn: !GetAtt EksStack.Outputs.KubeGetLambdaArn
+        #KubeManifestLambdaArn: !GetAtt EksStack.Outputs.KubeManifestLambdaArn
+        #HelmLambdaArn: !GetAtt EksStack.Outputs.HelmLambdaArn
+        #EksClusterName: !GetAtt EksStack.Outputs.EKSClusterName
+        #KubeGetLambdaArn: !GetAtt EksStack.Outputs.KubeGetLambdaArn
         NumberOfSecondary: !Ref NumberOfSecondary
         AccessCidr: !Ref AccessCidr
         ArtifactoryProduct: !Ref ArtifactoryProduct

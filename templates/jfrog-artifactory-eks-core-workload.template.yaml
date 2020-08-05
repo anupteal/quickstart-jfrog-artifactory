@@ -1,12 +1,12 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "Deploys Artifactory into an existing Kubernetes cluster"
 Parameters:
-  KubeManifestLambdaArn:
-    Type: String
-  HelmLambdaArn:
-    Type: String
-  EksClusterName:
-    Type: String
+  # KubeManifestLambdaArn:
+  #   Type: String
+  # HelmLambdaArn:
+  #   Type: String
+  # EksClusterName:
+  #   Type: String
   KubeGetLambdaArn:
     Type: String
   NumberOfSecondary:
@@ -161,8 +161,8 @@ Resources:
     Type: "Custom::KubeManifest"
     Version: '1.0'
     Properties:
-      ServiceToken: !Ref KubeManifestLambdaArn
-      ClusterName: !Ref EksClusterName
+      ServiceToken: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:EKS-QuickStart-KubeManifest-${KubeClusterName}"
+      ClusterName: !Ref KubeClusterName
       Manifest:
         kind: Namespace
         apiVersion: v1
@@ -176,8 +176,8 @@ Resources:
     Type: "Custom::KubeManifest"
     Version: '1.0'
     Properties:
-      ServiceToken: !Ref KubeManifestLambdaArn
-      ClusterName: !Ref EksClusterName
+      ServiceToken: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:EKS-QuickStart-KubeManifest-${KubeClusterName}"
+      ClusterName: !Ref KubeClusterName
       Manifest:
         kind: Secret
         apiVersion: v1
@@ -202,8 +202,8 @@ Resources:
     Type: "Custom::KubeManifest"
     Version: '1.0'
     Properties:
-      ServiceToken: !Ref KubeManifestLambdaArn
-      ClusterName: !Ref EksClusterName
+      ServiceToken: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:EKS-QuickStart-KubeManifest-${KubeClusterName}"
+      ClusterName: !Ref KubeClusterName
       Manifest:
         kind: Secret
         apiVersion: v1
@@ -232,8 +232,8 @@ Resources:
     Type: "Custom::KubeManifest"
     Version: '1.0'
     Properties:
-      ServiceToken: !Ref KubeManifestLambdaArn
-      ClusterName: !Ref EksClusterName
+      ServiceToken: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:EKS-QuickStart-KubeManifest-${KubeClusterName}"
+      ClusterName: !Ref KubeClusterName
       Manifest:
         kind: Secret
         apiVersion: v1
@@ -256,35 +256,73 @@ Resources:
               !Sub ${DatabaseUrl}
   ArtifactoryDeployment:
     Condition: ArtifactoryHa
-    Type: "Custom::Helm"
+    Type: "AWSQS::Kubernetes::Helm"
     DependsOn:
       - LicenseStore
       - CertificateStore
-    Version: '1.0'
+    #Version: '1.0'
     Properties:
-      ServiceToken: !Ref HelmLambdaArn
-      ClusterName: !Ref EksClusterName
+      # ServiceToken: !Ref HelmLambdaArn
+      # ClusterID: !Ref EksClusterName
+      ClusterID: !Ref KubeClusterName
       Namespace: !FindInMap [ArtifactoryProductMap, !Ref ArtifactoryProduct, namespace]
-      Name: quickstart-artifactory-ha
+      #Name: quickstart-artifactory-ha
       Chart: jfrog/artifactory-ha
-      RepoUrl: !FindInMap [HelmRepoMap, !FindInMap [ArtifactoryProductMap, !Ref ArtifactoryProduct, !Ref ReleaseStage], RepoUrl]
+      Repository: !FindInMap [HelmRepoMap, !FindInMap [ArtifactoryProductMap, !Ref ArtifactoryProduct, !Ref ReleaseStage], RepoUrl]
       # If we want to test specific version of the Helm chart, we can pass it here
       Version: !Ref HelmChartVersion
+      Values: 
+        artifactory.name: artifactory-ha # Helm Default
+        # artifactory.image.repository: !Ref ProDockerRepo #${ProDockerRepo} # Helm Default
+        artifactory.image.version: !Ref ArtifactoryVersion #${ArtifactoryVersion}
+        artifactory.image.pullPolicy: Always
+        artifactory.deleteDBPropertiesOnStartup: true
+        artifactory.license.secret: artifactory-cluster-license
+        artifactory.license.dataKey: art.lic
+        artifactory.masterKey: !Ref MasterKey #${MasterKey}
+        artifactory.joinKey: !Ref MasterKey #${MasterKey}
+        artifactory.persistence.enabled: false
+        artifactory.persistence.local: false
+        artifactory.persistence.type: aws-s3-v3
+        artifactory.service.pool: all
+        artifactory.primary.resources.requests.memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsMem] # "${requests_memory}"
+        artifactory.primary.resources.requests.cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsCpu] #"${requests_cpu}"
+        artifactory.primary.resources.limits.memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsMem] # "${limits_memory}"
+        artifactory.primary.resources.limits.cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsCpu] # "${limits_cpu}"
+        artifactory.primary.javaOpts.xms: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXms] # "${java_xms}"
+        artifactory.primary.javaOpts.xmx: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXmx] # "${java_xmx}"
+        artifactory.primary.nodeSelector.partition: !Ref ArtifactoryProduct #${ArtifactoryProduct}
+        artifactory.node.replicaCount: !Ref NumberOfSecondary #${NumberOfSecondary}
+        artifactory.node.resources.requests.memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsMem] # "${requests_memory}"
+        artifactory.node.resources.requests.cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsCpu] #"${requests_cpu}"
+        artifactory.node.resources.limits.memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsMem] # "${limits_memory}"
+        artifactory.node.resources.limits.cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsCpu] # "${limits_cpu}"
+        artifactory.node.javaOpts.xms: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXms] # "${java_xms}"
+        artifactory.node.javaOpts.xmx: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXmx] # "${java_xmx}"
+        artifactory.node.nodeSelector.partition: !Sub ${ArtifactoryProduct}-secondary
+        artifactory.node.podAntiAffinity.type: "soft"
+        artifactory.node.podAntiAffinity.topologyKey: "kubernetes.io/hostname"
+        postgresql.enabled: false
+        nginx.enabled: true # Helm Default
+        # nginx.image.repository: !Ref NginxDockerRepo #${NginxDockerRepo} # Helm Default
+        nginx.image.version: !Ref ArtifactoryVersion #${ArtifactoryVersion}
+        nginx.replicaCount: 3
+        # nginx.service.loadBalancerSourceRanges:  #in ValueYaml
+        #   - !Sub ${AccessCidr}
+        nginx.tlsSecretName: artifactory-nginx-tls
+        database.type: !Ref DatabaseType #${DatabaseType}
+        database.driver: !Ref DatabaseDriver #${DatabaseDriver}
+        database.secrets.user.name: artifactory-cluster-db
+        database.secrets.user.key: "db-user"
+        database.secrets.password.name: artifactory-cluster-db
+        database.secrets.password.key: "db-password"
+        database.secrets.url.name: artifactory-cluster-db
+        database.secrets.url.key: "db-url"
       ValueYaml: !Sub
         - |
           artifactory:
-            name: artifactory-ha
-            deleteDBPropertiesOnStartup: true
-            license:
-              secret: artifactory-cluster-license
-              dataKey: art.lic
-            masterKey: ${MasterKey}
-            joinKey: ${MasterKey}
             preStartCommand: mkdir -p /var/opt/jfrog/artifactory/etc/artifactory/info/; mkdir -p /var/opt/jfrog/artifactory/bootstrap/artifactory/tomcat/lib/; wget -O  /var/opt/jfrog/artifactory/bootstrap/artifactory/tomcat/lib/${DatabasePlugin} ${DatabasePluginUrl}
             persistence:
-              enabled: false
-              local: false
-              type: aws-s3-v3
               binarystoreXml: |
                 <config version="2">
                     <chain>
@@ -328,68 +366,10 @@ Resources:
                         <signatureExpirySeconds>300</signatureExpirySeconds>
                     </provider>
                 </config>
-            service:
-              pool: all
-            primary:
-              resources:
-                requests:
-                  memory: "${requests_memory}"
-                  cpu: "${requests_cpu}"
-                limits:
-                  memory: "${limits_memory}"
-                  cpu: "${limits_cpu}"
-              javaOpts:
-                xms: "${java_xms}"
-                xmx: "${java_xmx}"
-              nodeSelector:
-                partition: ${ArtifactoryProduct}
-            node:
-              replicaCount: ${NumberOfSecondary}
-              resources:
-                requests:
-                  memory: "${requests_memory}"
-                  cpu: "${requests_cpu}"
-                limits:
-                  memory: "${limits_memory}"
-                  cpu: "${limits_cpu}"
-              javaOpts:
-                xms: "${java_xms}"
-                xmx: "${java_xmx}"
-              nodeSelector:
-                partition: ${ArtifactoryProduct}-secondary
-              podAntiAffinity:
-                type: "soft"
-                topologyKey: "kubernetes.io/hostname"
-          postgresql:
-            enabled: false
-          database:
-            type: ${DatabaseType}
-            driver: ${DatabaseDriver}
-            secrets:
-              user:
-                name: artifactory-cluster-db
-                key: "db-user"
-              password:
-                name: artifactory-cluster-db
-                key: "db-password"
-              url:
-                name: artifactory-cluster-db
-                key: "db-url"
           nginx:
-            enabled: true
-            replicaCount: 3
             service:
               loadBalancerSourceRanges:  [ "${AccessCidr}" ]
-            tlsSecretName: artifactory-nginx-tls
           installerInfo: '{"productId": "CloudFormation_artifactory-ha/1.0.0","features": [{"featureId": "Partner/ACC-006973"}]}'
-        - {
-           requests_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsMem],
-           requests_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, requestsCpu],
-           limits_memory: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsMem],
-           limits_cpu: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, limitsCpu],
-           java_xms: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXms],
-           java_xmx: !FindInMap [DeploymentSize, !Ref ArtifactoryDeploymentSize, javaOptsXmx],
-          }
 
   IngressHostName:
     Condition: ArtifactoryHa
@@ -397,23 +377,24 @@ Resources:
     Type: "Custom::KubeGet"
     Version: '1.0'
     Properties:
-      ServiceToken: !Ref KubeGetLambdaArn
-      ClusterName: !Ref EksClusterName
+      ServiceToken: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:EKS-QuickStart-KubeGet-${KubeClusterName}"
+      ClusterName: !Ref KubeClusterName
       Namespace: !FindInMap [ArtifactoryProductMap, !Ref ArtifactoryProduct, namespace]
       Name: svc/quickstart-artifactory-ha-nginx
       JsonPath: '{.status.loadBalancer.ingress[0].hostname}'
   JcrDeployment:
     Condition: JcrInstall
-    Type: "Custom::Helm"
+    Type: "AWSQS::Kubernetes::Helm"
     DependsOn: CertificateStore
-    Version: '1.0'
+    #Version: '1.0'
     Properties:
-      ServiceToken: !Ref HelmLambdaArn
-      ClusterName: !Ref EksClusterName
+      # ServiceToken: !Ref HelmLambdaArn
+      # ClusterName: !Ref EksClusterName
+      ClusterID: !Ref KubeClusterName
       Namespace: !FindInMap [ArtifactoryProductMap, !Ref ArtifactoryProduct, namespace]
       Name: quickstart-jcr
       Chart: jfrog/artifactory-jcr
-      RepoUrl: !FindInMap [HelmRepoMap, !FindInMap [ArtifactoryProductMap, !Ref ArtifactoryProduct, !Ref ReleaseStage], RepoUrl]
+      Repository: !FindInMap [HelmRepoMap, !FindInMap [ArtifactoryProductMap, !Ref ArtifactoryProduct, !Ref ReleaseStage], RepoUrl]
       Version: !Ref HelmChartVersion
       ValueYaml: !Sub
         - |
@@ -507,8 +488,8 @@ Resources:
     Type: "Custom::KubeGet"
     Version: '1.0'
     Properties:
-      ServiceToken: !Ref KubeGetLambdaArn
-      ClusterName: !Ref EksClusterName
+      ServiceToken: !Sub "arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:EKS-QuickStart-KubeGet-${KubeClusterName}"
+      ClusterName: !Ref KubeClusterName
       Namespace: !FindInMap [ArtifactoryProductMap, !Ref ArtifactoryProduct, namespace]
       Name: svc/quickstart-jcr-artifactory-nginx
       JsonPath: '{.status.loadBalancer.ingress[0].hostname}'
