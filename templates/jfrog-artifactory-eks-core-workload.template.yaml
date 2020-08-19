@@ -266,7 +266,7 @@ Resources:
       # ClusterID: !Ref EksClusterName
       ClusterID: !Ref KubeClusterName
       Namespace: !FindInMap [ArtifactoryProductMap, !Ref ArtifactoryProduct, namespace]
-      #Name: quickstart-artifactory-ha
+      Name: quickstart-artifactory-ha
       Chart: jfrog/artifactory-ha
       Repository: !FindInMap [HelmRepoMap, !FindInMap [ArtifactoryProductMap, !Ref ArtifactoryProduct, !Ref ReleaseStage], RepoUrl]
       # If we want to test specific version of the Helm chart, we can pass it here
