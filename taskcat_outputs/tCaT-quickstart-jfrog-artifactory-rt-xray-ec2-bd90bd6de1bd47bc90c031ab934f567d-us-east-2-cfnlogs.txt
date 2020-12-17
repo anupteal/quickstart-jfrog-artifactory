@@ -1,0 +1,44 @@
+-----------------------------------------------------------------------------
+Region: us-east-2
+StackName: tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-bd90bd6de1bd47bc90c031ab934f567d
+*****************************************************************************
+ResourceStatusReason:  
+
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                               LogicalResourceId                                                               ResourceStatusReason
+--------------------------------  ------------------  -----------------------------------------  ------------------------------------------------------------------------------  -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2020-12-14 15:38:27.462000+00:00  DELETE_COMPLETE     AWS::CloudFormation::Stack                 tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-bd90bd6de1bd47bc90c031ab934f567d
+2020-12-14 15:38:26.582000+00:00  DELETE_COMPLETE     AWS::IAM::Role                             BastionRole
+2020-12-14 15:38:26.264000+00:00  DELETE_COMPLETE     AWS::EC2::SecurityGroup                    InstanceSecurityGroup
+2020-12-14 15:38:26.060000+00:00  DELETE_COMPLETE     AWS::IAM::Role                             ArtifactoryHostRole
+2020-12-14 15:38:25.594000+00:00  DELETE_COMPLETE     AWS::IAM::User                             ArtifactoryS3IAMUser
+2020-12-14 15:38:25.199000+00:00  DELETE_COMPLETE     AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactoryInternalTargetGroup
+2020-12-14 15:38:25.135000+00:00  DELETE_IN_PROGRESS  AWS::IAM::Role                             BastionRole
+2020-12-14 15:38:25.117000+00:00  DELETE_COMPLETE     AWS::ElasticLoadBalancingV2::LoadBalancer  ArtifactoryElb
+2020-12-14 15:38:25.101000+00:00  DELETE_IN_PROGRESS  AWS::IAM::Role                             ArtifactoryHostRole
+2020-12-14 15:38:25.092000+00:00  DELETE_IN_PROGRESS  AWS::IAM::User                             ArtifactoryS3IAMUser
+2020-12-14 15:38:25.066000+00:00  DELETE_IN_PROGRESS  AWS::EC2::SecurityGroup                    InstanceSecurityGroup
+2020-12-14 15:38:22.282000+00:00  DELETE_IN_PROGRESS  AWS::CloudFormation::Stack                 tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-bd90bd6de1bd47bc90c031ab934f567d  User Initiated
+2020-12-14 15:37:45.425000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack                 tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-bd90bd6de1bd47bc90c031ab934f567d  The following resource(s) failed to create: [ArtifactoryS3IAMUser, ArtifactoryElb, ArtifactoryHostRole, BastionRole, ArtifactoryInternalTargetGroup, InstanceSecurityGroup].
+2020-12-14 15:37:44.596000+00:00  CREATE_FAILED       AWS::EC2::SecurityGroup                    InstanceSecurityGroup                                                           Resource creation cancelled
+2020-12-14 15:37:41.100000+00:00  CREATE_FAILED       AWS::IAM::Role                             BastionRole                                                                     Resource creation cancelled
+2020-12-14 15:37:40.920000+00:00  CREATE_FAILED       AWS::IAM::Role                             ArtifactoryHostRole                                                             Resource creation cancelled
+2020-12-14 15:37:40.844000+00:00  CREATE_FAILED       AWS::IAM::User                             ArtifactoryS3IAMUser                                                            Resource creation cancelled
+2020-12-14 15:37:40.806000+00:00  CREATE_FAILED       AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactoryInternalTargetGroup                                                  artifactory-internal-http already exists in stack arn:aws:cloudformation:us-east-2:096302395721:stack/tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-21847af6796f423883e68218a2e194b2/1eb92da0-3e20-11eb-a72d-021f5547ac76
+2020-12-14 15:37:40.803000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             ArtifactoryHostRole                                                             Resource creation Initiated
+2020-12-14 15:37:40.692000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             BastionRole
+2020-12-14 15:37:40.546000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactoryInternalTargetGroup
+2020-12-14 15:37:40.537000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             ArtifactoryHostRole
+2020-12-14 15:37:40.509000+00:00  CREATE_FAILED       AWS::ElasticLoadBalancingV2::LoadBalancer  ArtifactoryElb                                                                  JFrog-Artifactory-Pro-EC2-ELB already exists in stack arn:aws:cloudformation:us-east-2:096302395721:stack/tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-21847af6796f423883e68218a2e194b2/1eb92da0-3e20-11eb-a72d-021f5547ac76
+2020-12-14 15:37:40.257000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::LoadBalancer  ArtifactoryElb
+2020-12-14 15:37:40.064000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    InstanceSecurityGroup
+2020-12-14 15:37:39.522000+00:00  CREATE_IN_PROGRESS  AWS::IAM::User                             ArtifactoryS3IAMUser                                                            Resource creation Initiated
+2020-12-14 15:37:39.282000+00:00  CREATE_IN_PROGRESS  AWS::IAM::User                             ArtifactoryS3IAMUser
+2020-12-14 15:37:33.863000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                 tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-bd90bd6de1bd47bc90c031ab934f567d  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 14. December 2020 09:08PM
+-----------------------------------------------------------------------------
+

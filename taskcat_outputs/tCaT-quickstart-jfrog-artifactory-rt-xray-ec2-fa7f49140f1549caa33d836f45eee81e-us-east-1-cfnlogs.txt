@@ -1,0 +1,23 @@
+-----------------------------------------------------------------------------
+Region: us-east-1
+StackName: tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-fa7f49140f1549caa33d836f45eee81e
+*****************************************************************************
+ResourceStatusReason:  
+Parameter validation failed: parameter value subnet-00fce1c2df54627c1 for parameter
+name PrivateSubnet2Id does not exist, parameter value subnet-04059e18aed29feb8 for
+parameter name PrivateSubnet1Id does not exist, parameter value
+subnet-0f8245eb09eb6fe0b for parameter name PublicSubnet1Id does not exist, parameter
+value subnet-0488c02dfb3156a8c for parameter name PublicSubnet2Id does not exist,
+parameter value vpc-0c34820ee493dfc50 for parameter name VpcId does not exist
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                                               ResourceStatusReason
+--------------------------------  ------------------  --------------------------  ------------------------------------------------------------------------------  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2020-12-14 12:38:53.981000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-fa7f49140f1549caa33d836f45eee81e  Parameter validation failed: parameter value subnet-00fce1c2df54627c1 for parameter name PrivateSubnet2Id does not exist, parameter value subnet-04059e18aed29feb8 for parameter name PrivateSubnet1Id does not exist, parameter value subnet-0f8245eb09eb6fe0b for parameter name PublicSubnet1Id does not exist, parameter value subnet-0488c02dfb3156a8c for parameter name PublicSubnet2Id does not exist, parameter value vpc-0c34820ee493dfc50 for parameter name VpcId does not exist
+2020-12-14 12:38:49.381000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-fa7f49140f1549caa33d836f45eee81e  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Monday, 14. December 2020 06:09PM
+-----------------------------------------------------------------------------
+

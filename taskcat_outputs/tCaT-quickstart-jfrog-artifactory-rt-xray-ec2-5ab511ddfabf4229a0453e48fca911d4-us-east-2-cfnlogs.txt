@@ -1,0 +1,119 @@
+-----------------------------------------------------------------------------
+Region: us-east-2
+StackName: tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-5ab511ddfabf4229a0453e48fca911d4
+*****************************************************************************
+ResourceStatusReason:  
+The following resource(s) failed to create: [ArtifactoryHostProfile, ArtifactoryElb,
+BastionStack, ArtifactoryCoreInfraStack, ArtifactoryInternalElb].
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                               LogicalResourceId                                                               ResourceStatusReason
+--------------------------------  ------------------  -----------------------------------------  ------------------------------------------------------------------------------  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2020-12-15 12:33:46.436000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack                 tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-5ab511ddfabf4229a0453e48fca911d4  The following resource(s) failed to create: [ArtifactoryHostProfile, ArtifactoryElb, BastionStack, ArtifactoryCoreInfraStack, ArtifactoryInternalElb].
+2020-12-15 12:33:45.486000+00:00  CREATE_FAILED       AWS::ElasticLoadBalancingV2::LoadBalancer  ArtifactoryInternalElb                                                          Resource creation cancelled
+2020-12-15 12:33:45.482000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack                 BastionStack                                                                    Resource creation cancelled
+2020-12-15 12:33:45.480000+00:00  CREATE_FAILED       AWS::ElasticLoadBalancingV2::LoadBalancer  ArtifactoryElb                                                                  Resource creation cancelled
+2020-12-15 12:33:45.461000+00:00  CREATE_FAILED       AWS::IAM::InstanceProfile                  ArtifactoryHostProfile                                                          Resource creation cancelled
+2020-12-15 12:33:45.192000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack                 ArtifactoryCoreInfraStack                                                       Embedded stack arn:aws:cloudformation:us-east-2:096302395721:stack/tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-5ab511ddfabf42-ArtifactoryCoreInfraStack-BTCJFGWHYQ6E/bf3cec60-3ed1-11eb-be6d-024ff5f35efc was not successfully created: The following resource(s) failed to create: [ArtifactoryS3Bucket, ArtifactoryDatabaseSubnetGroup].
+2020-12-15 12:33:34.611000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                 ArtifactoryCoreInfraStack                                                       Resource creation Initiated
+2020-12-15 12:33:34.190000+00:00  CREATE_COMPLETE     AWS::IAM::AccessKey                        ArtifactoryIamAcessKey
+2020-12-15 12:33:33.980000+00:00  CREATE_IN_PROGRESS  AWS::IAM::AccessKey                        ArtifactoryIamAcessKey                                                          Resource creation Initiated
+2020-12-15 12:33:33.924000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                 ArtifactoryCoreInfraStack
+2020-12-15 12:33:33.675000+00:00  CREATE_IN_PROGRESS  AWS::IAM::AccessKey                        ArtifactoryIamAcessKey
+2020-12-15 12:33:31.276000+00:00  CREATE_COMPLETE     AWS::IAM::User                             ArtifactoryS3IAMUser
+2020-12-15 12:33:14.937000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                 BastionStack                                                                    Resource creation Initiated
+2020-12-15 12:33:14.859000+00:00  CREATE_IN_PROGRESS  AWS::IAM::InstanceProfile                  ArtifactoryHostProfile                                                          Resource creation Initiated
+2020-12-15 12:33:14.638000+00:00  CREATE_IN_PROGRESS  AWS::IAM::InstanceProfile                  ArtifactoryHostProfile
+2020-12-15 12:33:13.998000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                 BastionStack
+2020-12-15 12:33:11.564000+00:00  CREATE_COMPLETE     AWS::IAM::Role                             ArtifactoryHostRole
+2020-12-15 12:33:11.478000+00:00  CREATE_COMPLETE     AWS::IAM::Role                             BastionRole
+2020-12-15 12:33:03.509000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup                    ArtifactoryEc2Sg
+2020-12-15 12:33:02.910000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup                    InstanceSecurityGroup
+2020-12-15 12:33:01.418000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    ArtifactoryEc2Sg                                                                Resource creation Initiated
+2020-12-15 12:33:01.374000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    InstanceSecurityGroup                                                           Resource creation Initiated
+2020-12-15 12:32:57.977000+00:00  CREATE_COMPLETE     AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactoryTargetGroup
+2020-12-15 12:32:57.966000+00:00  CREATE_COMPLETE     AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactoryInternalTargetGroup
+2020-12-15 12:32:57.685000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             ArtifactoryHostRole                                                             Resource creation Initiated
+2020-12-15 12:32:57.642000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactoryTargetGroup                                                          Resource creation Initiated
+2020-12-15 12:32:57.636000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::LoadBalancer  ArtifactoryInternalElb                                                          Resource creation Initiated
+2020-12-15 12:32:57.601000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactoryInternalTargetGroup                                                  Resource creation Initiated
+2020-12-15 12:32:57.560000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::LoadBalancer  ArtifactoryElb                                                                  Resource creation Initiated
+2020-12-15 12:32:57.532000+00:00  CREATE_COMPLETE     AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactorySslTargetGroup
+2020-12-15 12:32:57.451000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             ArtifactoryHostRole
+2020-12-15 12:32:57.315000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactoryTargetGroup
+2020-12-15 12:32:57.146000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             BastionRole                                                                     Resource creation Initiated
+2020-12-15 12:32:57.122000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactorySslTargetGroup                                                       Resource creation Initiated
+2020-12-15 12:32:56.907000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    ArtifactoryEc2Sg
+2020-12-15 12:32:56.859000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup                    InstanceSecurityGroup
+2020-12-15 12:32:56.847000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactoryInternalTargetGroup
+2020-12-15 12:32:56.808000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Role                             BastionRole
+2020-12-15 12:32:56.800000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::TargetGroup   ArtifactorySslTargetGroup
+2020-12-15 12:32:56.757000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::LoadBalancer  ArtifactoryElb
+2020-12-15 12:32:56.711000+00:00  CREATE_IN_PROGRESS  AWS::ElasticLoadBalancingV2::LoadBalancer  ArtifactoryInternalElb
+2020-12-15 12:32:56.005000+00:00  CREATE_IN_PROGRESS  AWS::IAM::User                             ArtifactoryS3IAMUser                                                            Resource creation Initiated
+2020-12-15 12:32:55.769000+00:00  CREATE_IN_PROGRESS  AWS::IAM::User                             ArtifactoryS3IAMUser
+2020-12-15 12:32:50.530000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack                 tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-5ab511ddfabf4229a0453e48fca911d4  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Tuesday, 15. December 2020 06:03PM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-2
+StackName: tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-5ab511ddfabf4229a0453e48fca-BastionStack-1TV57XY0E6EFA
+*****************************************************************************
+ResourceStatusReason:  
+Resource creation Initiated
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                                                                     ResourceStatusReason
+--------------------------------  ------------------  --------------------------  ----------------------------------------------------------------------------------------------------  ---------------------------
+2020-12-15 12:33:38.773000+00:00  CREATE_IN_PROGRESS  AWS::IAM::InstanceProfile   BastionHostProfile                                                                                    Resource creation Initiated
+2020-12-15 12:33:38.549000+00:00  CREATE_IN_PROGRESS  AWS::IAM::InstanceProfile   BastionHostProfile
+2020-12-15 12:33:37.454000+00:00  CREATE_COMPLETE     AWS::EC2::EIP               EIP1
+2020-12-15 12:33:36.586000+00:00  CREATE_COMPLETE     AWS::IAM::Policy            BastionHostPolicy
+2020-12-15 12:33:25.073000+00:00  CREATE_COMPLETE     AWS::EC2::SecurityGroup     BastionSecurityGroup
+2020-12-15 12:33:24.512000+00:00  CREATE_COMPLETE     AWS::Logs::MetricFilter     SSHMetricFilter
+2020-12-15 12:33:24.237000+00:00  CREATE_IN_PROGRESS  AWS::Logs::MetricFilter     SSHMetricFilter                                                                                       Resource creation Initiated
+2020-12-15 12:33:24.232000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup     BastionSecurityGroup                                                                                  Resource creation Initiated
+2020-12-15 12:33:24.002000+00:00  CREATE_IN_PROGRESS  AWS::Logs::MetricFilter     SSHMetricFilter
+2020-12-15 12:33:23.453000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Policy            BastionHostPolicy                                                                                     Resource creation Initiated
+2020-12-15 12:33:22.757000+00:00  CREATE_IN_PROGRESS  AWS::IAM::Policy            BastionHostPolicy
+2020-12-15 12:33:21.623000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP               EIP1                                                                                                  Resource creation Initiated
+2020-12-15 12:33:20.627000+00:00  CREATE_COMPLETE     AWS::Logs::LogGroup         BastionMainLogGroup
+2020-12-15 12:33:20.360000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup         BastionMainLogGroup                                                                                   Resource creation Initiated
+2020-12-15 12:33:19.601000+00:00  CREATE_IN_PROGRESS  AWS::EC2::SecurityGroup     BastionSecurityGroup
+2020-12-15 12:33:19.495000+00:00  CREATE_IN_PROGRESS  AWS::EC2::EIP               EIP1
+2020-12-15 12:33:18.751000+00:00  CREATE_IN_PROGRESS  AWS::Logs::LogGroup         BastionMainLogGroup
+2020-12-15 12:33:14.658000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-5ab511ddfabf4229a0453e48fca-BastionStack-1TV57XY0E6EFA  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Tuesday, 15. December 2020 06:03PM
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Region: us-east-2
+StackName: tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-5ab511ddfabf42-ArtifactoryCoreInfraStack-BTCJFGWHYQ6E
+*****************************************************************************
+ResourceStatusReason:  
+The following resource(s) failed to create: [ArtifactoryS3Bucket,
+ArtifactoryDatabaseSubnetGroup].
+*****************************************************************************
+*****************************************************************************
+Events:  
+TimeStamp                         ResourceStatus      ResourceType                LogicalResourceId                                                                                    ResourceStatusReason
+--------------------------------  ------------------  --------------------------  ---------------------------------------------------------------------------------------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2020-12-15 12:33:39.289000+00:00  CREATE_FAILED       AWS::CloudFormation::Stack  tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-5ab511ddfabf42-ArtifactoryCoreInfraStack-BTCJFGWHYQ6E  The following resource(s) failed to create: [ArtifactoryS3Bucket, ArtifactoryDatabaseSubnetGroup].
+2020-12-15 12:33:38.664000+00:00  CREATE_FAILED       AWS::S3::Bucket             ArtifactoryS3Bucket                                                                                  Resource creation cancelled
+2020-12-15 12:33:38.447000+00:00  CREATE_IN_PROGRESS  AWS::S3::Bucket             ArtifactoryS3Bucket                                                                                  Resource creation Initiated
+2020-12-15 12:33:38.201000+00:00  CREATE_FAILED       AWS::RDS::DBSubnetGroup     ArtifactoryDatabaseSubnetGroup                                                                       DB Subnet Group doesn't meet availability zone coverage requirement. Please add subnets to cover at least 2 availability zones. Current coverage: 1 (Service: AmazonRDS; Status Code: 400; Error Code: DBSubnetGroupDoesNotCoverEnoughAZs; Request ID: c9f9b309-8130-44fa-93e4-75ad8140fca6; Proxy: null)
+2020-12-15 12:33:37.925000+00:00  CREATE_IN_PROGRESS  AWS::S3::Bucket             ArtifactoryS3Bucket
+2020-12-15 12:33:37.778000+00:00  CREATE_IN_PROGRESS  AWS::RDS::DBSubnetGroup     ArtifactoryDatabaseSubnetGroup
+2020-12-15 12:33:34.426000+00:00  CREATE_IN_PROGRESS  AWS::CloudFormation::Stack  tCaT-quickstart-jfrog-artifactory-rt-xray-ec2-5ab511ddfabf42-ArtifactoryCoreInfraStack-BTCJFGWHYQ6E  User Initiated
+*****************************************************************************
+-----------------------------------------------------------------------------
+Tested on: Tuesday, 15. December 2020 06:03PM
+-----------------------------------------------------------------------------
+
