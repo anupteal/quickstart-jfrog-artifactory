@@ -2,9 +2,9 @@
     - name: myAppRepo
       type: GitRepo
       configuration:
-	    gitProvider: MyGitHub
-            path: jfrogtw/jfrog-pipelines-hw
-	    branches:
+          gitProvider: MyGitHub
+          path: jfrogtw/jfrog-pipelines-hw
+	  branches:
 	        include: master
   pipelines:
      - name: pipeline_hello_world
