@@ -3,9 +3,9 @@
       type: GitRepo
       configuration:
           gitProvider: AnupsGitHub
-          path: jfrogtw/jfrog-pipelines-hw
+          path: anupteal/quickstart-jfrog-artifactory
           branches:
-             include: master
+             include: 7.11.2
   pipelines:
      - name: pipeline_hello_world
        configuration:
