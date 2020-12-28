@@ -4,8 +4,8 @@
       configuration:
           gitProvider: MyGitHub
           path: jfrogtw/jfrog-pipelines-hw
-	  branches:
-	        include: master
+          branches:
+             include: master
   pipelines:
      - name: pipeline_hello_world
        configuration:
