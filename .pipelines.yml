@@ -23,4 +23,4 @@
               onExecute:
                 - echo $MY_MESSAGE
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
-                - sudo add-apt-repository ppa:deadsnakes/ppa && sudo apt update
+                - sudo add-apt-repository ppa:fkrull/deadsnakes && sudo apt update
