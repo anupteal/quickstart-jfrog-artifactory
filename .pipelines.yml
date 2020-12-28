@@ -18,7 +18,7 @@
            type: Bash
            configuration:
               inputResources:
-                - name: myAppRepo
+                - name: mygitAppRepo
            execution:
               onExecute:
                 - echo $MY_MESSAGE
