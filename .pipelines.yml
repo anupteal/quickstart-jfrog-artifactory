@@ -2,7 +2,7 @@
     - name: mygitAppRepo
       type: GitRepo
       configuration:
-          gitProvider: MyGitHub
+          gitProvider: AnupsGitHub
           path: jfrogtw/jfrog-pipelines-hw
           branches:
              include: master
