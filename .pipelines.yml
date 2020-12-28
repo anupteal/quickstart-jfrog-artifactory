@@ -23,4 +23,4 @@
               onExecute:
                 - echo $MY_MESSAGE
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
-                - python --version
+                - ls /usr/bin/python*
