@@ -7,7 +7,7 @@
           branches:
              include: 7.11.2
   pipelines:
-     - name: pipeline_hello_world
+     - name: anup_taskcat_testing
        configuration:
          environmentVariables:
             readOnly:
