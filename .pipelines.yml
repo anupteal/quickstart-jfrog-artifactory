@@ -1,11 +1,11 @@
   resources:
     - name: myAppRepo
-	  type: GitRepo
-	  configuration:
+      type: GitRepo
+      configuration:
 	    gitProvider: MyGitHub
-		path: jfrogtw/jfrog-pipelines-hw
-		branches:
-		   include: master
+            path: jfrogtw/jfrog-pipelines-hw
+	    branches:
+	        include: master
   pipelines:
      - name: pipeline_hello_world
        configuration:
