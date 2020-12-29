@@ -19,7 +19,11 @@
            configuration:
               runtime:
                  type: image
-                 image: http://docker.bintray.io/jfrog/pipelines-u20cpp:10.0.0
+                 image:
+                   auto:
+                     language: python
+                     versions:
+                        - "3.8"       
               inputResources:
                 - name: mygitAppRepo
            execution:
