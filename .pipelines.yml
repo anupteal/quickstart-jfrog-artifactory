@@ -23,7 +23,6 @@
                    custom:
                      name: taskcat/taskcat
                      tag: latest
-                     options:
                      registry: anupdocker
            execution:
               onExecute:
