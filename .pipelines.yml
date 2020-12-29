@@ -24,8 +24,6 @@
                      language: python-dev
                      versions:
                         - "3.5"       
-              inputResources:
-                - name: mygitAppRepo
            execution:
               onExecute:
                 - echo $MY_MESSAGE
