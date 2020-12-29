@@ -21,7 +21,7 @@
                  type: image
                  image:
                    custom:
-                     name: cft/taskcat
+                     name: taskcat
                      tag: "1"
                      registry: anupdocker
            execution:
