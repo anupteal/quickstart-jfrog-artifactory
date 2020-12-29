@@ -22,7 +22,7 @@
                  image:
                    custom:
                      name: anupigt/cft
-                     tag: 1
+                     tag: "1"
                      registry: anupdocker
            execution:
               onExecute:
