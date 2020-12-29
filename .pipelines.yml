@@ -23,7 +23,6 @@
                    custom:
                      name: taskcat/taskcat
                      tag: latest
-                     registry: anupdocker
            execution:
               onExecute:
                 - echo $MY_MESSAGE
