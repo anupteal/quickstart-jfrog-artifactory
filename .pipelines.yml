@@ -18,12 +18,7 @@
            type: Bash
            configuration:
               runtime:
-                 type: image
-                 image:
-                   auto:
-                     language: python-dev
-                     versions:
-                        - "3.5"       
+                 type: host 
            execution:
               onExecute:
                 - echo $MY_MESSAGE
