@@ -21,10 +21,10 @@
                  type: image
                  image:
                    custom:
-                   name: taskcat/taskcat
-                   tag: latest
-                   options:
-                   registry: anupdocker
+                     name: taskcat/taskcat
+                     tag: latest
+                     options:
+                     registry: anupdocker
            execution:
               onExecute:
                 - echo $MY_MESSAGE
