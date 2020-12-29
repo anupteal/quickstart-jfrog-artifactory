@@ -18,7 +18,13 @@
            type: Bash
            configuration:
               runtime:
-                 type: host 
+                 type: image
+                 image:
+                   custom:
+                   name: taskcat/taskcat
+                   tag: latest
+                   options:
+                   registry: anupdocker
            execution:
               onExecute:
                 - echo $MY_MESSAGE
