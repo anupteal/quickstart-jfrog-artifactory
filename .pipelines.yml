@@ -17,6 +17,13 @@
          - name: step_1
            type: Bash
            configuration:
+              runtime:
+                 type: image
+                 image:
+                   auto:
+                    language: python3-pip
+                    version:
+                      - "20.0.2"
               inputResources:
                 - name: mygitAppRepo
            execution:
