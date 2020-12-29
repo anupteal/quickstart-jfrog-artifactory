@@ -21,9 +21,9 @@
                  type: image
                  image:
                    auto:
-                     language: python
+                     language: python-dev
                      versions:
-                        - "3.8"       
+                        - "3.5"       
               inputResources:
                 - name: mygitAppRepo
            execution:
