@@ -22,7 +22,7 @@
                  image:
                    auto:
                     language: python3-pip
-                    version:
+                    versions:
                       - "20.0.2"
               inputResources:
                 - name: mygitAppRepo
