@@ -21,8 +21,9 @@
                  type: image
                  image:
                    custom:
-                     name: taskcat/taskcat
-                     tag: latest
+                     name: anupigt/cft
+                     tag: 1
+                     registry: anupdocker
            execution:
               onExecute:
                 - echo $MY_MESSAGE
