@@ -24,4 +24,4 @@
                 - echo $MY_MESSAGE
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - ls /usr/bin/python*
-                - ls /
+                - ls /usr/bin/pip*
