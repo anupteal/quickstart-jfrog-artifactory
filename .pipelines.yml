@@ -23,7 +23,7 @@
               runtime:
                  type: image
                  image:
-                 /custom:
+                   custom:
                      name: partnership-public-images.jfrog.io/cft/taskcat
                      tag: "1"
                      registry: anupdocker
