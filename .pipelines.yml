@@ -12,8 +12,8 @@
          environmentVariables:
             readOnly:
                MY_MESSAGE: '"Hello World!"'
-               aws_access_key_id: "${int_AnupAWS_accessKeyId}"
-               aws_secret_access_key: "${int_AnupAWS_secretAccessKey}"
+               aws_access_key_id: '${int_AnupAWS_accessKeyId}'
+               aws_secret_access_key: '$(int_AnupAWS_secretAccessKey}'
                region: "us-east-2"
 
        steps:
@@ -34,4 +34,4 @@
                 - ls /usr/bin/python*
                 - taskcat --version
                 - echo $aws_access_key_id
-                - echo $region
+                - pwd && ls -lrth
