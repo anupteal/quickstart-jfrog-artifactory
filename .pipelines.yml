@@ -12,8 +12,8 @@
          environmentVariables:
             readOnly:
                MY_MESSAGE: '"Hello World!"'
-               aws_access_key_id: int_AnupAWS_accessKeyId}
-               aws_secret_access_key: int_AnupAWS_secretAccessKey
+               aws_access_key_id: ${int_AnupAWS_accessKeyId}
+               aws_secret_access_key: ${int_AnupAWS_secretAccessKey}
                region: "us-east-2"
 
        steps:
@@ -29,7 +29,7 @@
                      registry: anupdocker
            execution:
               onExecute:
-                - echo $MY_MESSAGE
+                - ls workspace
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - taskcat --version
                 - echo $aws_access_key_id
