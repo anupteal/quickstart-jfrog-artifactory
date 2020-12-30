@@ -29,7 +29,7 @@
                      registry: anupdocker
            execution:
               onExecute:
-                - cd workspace ; ls *
+                - ls */*
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - pwd
                 - ls /var/opt/jfrog/pipelines/data/anup_taskcat_testing 
