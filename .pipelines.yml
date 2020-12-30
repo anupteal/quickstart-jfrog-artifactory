@@ -12,6 +12,9 @@
          environmentVariables:
             readOnly:
                MY_MESSAGE: '"Hello World!"'
+               aws_access_key_id: "int_AnupAWS_accessKeyId"
+               aws_secret_access_key: "int_AnupAWS_secretAccessKey"
+               region: "us-east-2"
 
        steps:
          - name: step_1
