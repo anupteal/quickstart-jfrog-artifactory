@@ -1,11 +1,11 @@
 project:
   name: quickstart-jfrog-artifactory
-  owner: quickstart-eng@amazon.com
+  #owner: quickstart-eng@amazon.com
   #lambda_source_path: functions/source
   #lambda_zip_path: functions/packages
   s3_object_acl: public-read
   s3_regional_buckets: True
-  s3_bucket: tcat-422383ecc658557f9a377abae675aac0  # commercial accounts
+  #s3_bucket: tcat-422383ecc658557f9a377abae675aac0  # commercial accounts
   # s3_bucket: tcat-a3e80b6745b2547da1c745b16adf2a66    # aws-seller accounts
   regions:
     - us-east-1
@@ -64,18 +64,18 @@ tests:
   #     - us-east-1
   #     - us-gov-east-1
 
-  # create-vpc:
-  #   auth:
-  #     us-east-1     : default
-  #     us-gov-west-1 : gov
-  #     us-gov-east-1 : gov
-  #   parameters:
-  #     KeyPairName         : "vinaykey1"
-  #     # AvailabilityZones   : "us-east-1a, us-east-1b"
-  #     AvailabilityZones: "$[taskcat_genaz_2]"
-  #   template: submodules/quickstart-aws-vpc/templates/aws-vpc.template
-  #   regions:
-  #     - us-east-1
+   create-vpc:
+     auth:
+       us-east-1     : default
+       us-gov-west-1 : gov
+       us-gov-east-1 : gov
+     parameters:
+       KeyPairName         : "Anup"
+       # AvailabilityZones   : "us-east-1a, us-east-1b"
+       AvailabilityZones: "$[taskcat_genaz_2]"
+     template: submodules/quickstart-aws-vpc/templates/aws-vpc.template
+     regions:
+       - us-east-1
   #     - us-east-2
   #     - us-west-1
   #     - us-west-2
