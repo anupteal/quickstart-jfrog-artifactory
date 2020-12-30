@@ -12,6 +12,9 @@
          environmentVariables:
             readOnly:
                MY_MESSAGE: '"Hello World!"'
+               aws_access_key_id: "AKIARM3AR6FERBXJLEIAA"
+               aws_secret_access_key: "XVMnHKsaehsCxw21vhbqIcySSJ1R8kZenoxUllRSS"
+               region: "us-west-2"
 
        steps:
          - name: step_1
@@ -29,4 +32,4 @@
                 - echo $MY_MESSAGE
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - ls /usr/bin/python*
-                - ls /usr/bin/pip*
+                - taskcat --version
