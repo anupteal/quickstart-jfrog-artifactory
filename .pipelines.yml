@@ -31,7 +31,7 @@
               onExecute:
                 - echo $MY_MESSAGE
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
-                - ls /usr/bin/python*
+                - find . -iname ".yaml"
                 - taskcat --version
                 - echo $aws_access_key_id
                 - pwd && ls -lrth
