@@ -33,4 +33,4 @@
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - pwd
                 - ls /var/opt/jfrog/pipelines/data/anup_taskcat_testing/runs
-                - ls /var/opt/jfrog/pipelines/data/anup_taskcat_testing/runs
+                - ls /var/opt/jfrog/pipelines/data/anup_taskcat_testing/workspace
