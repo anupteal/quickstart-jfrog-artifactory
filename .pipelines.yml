@@ -29,8 +29,7 @@
                      registry: anupdocker
            execution:
               onExecute:
-                - ls workspace 
+                - cd workspace ; ls cache download run_state tmp upload
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
-                - ls cache download run_state tmp upload
                 - echo $aws_access_key_id
                 - find /var/opt/jfrog/pipelines/data/anup_taskcat_testing -iname ".taskcat.yml"
