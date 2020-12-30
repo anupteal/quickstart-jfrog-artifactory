@@ -35,6 +35,7 @@
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - taskcat --version
                 - ls dependencyState/resources/mygitAppRepo/submodules/quickstart-aws-vpc/
-                - ls dependencyState/resources/mygitAppRepo/submodules/quickstart-aws-vpc/templates/aws-vpc.template
+                - cd dependencyState/resources/mygitAppRepo/submodules; rm -rf quickstart-aws-vpc; git clone https://github.com/aws-quickstart/quickstart-aws-vpc.git
+                - ls dependencyState/resources/mygitAppRepo/submodules/quickstart-aws-vpc/templates/
                 - cd dependencyState/resources/mygitAppRepo; taskcat test run -n -l
                 - ls /var/opt/jfrog/pipelines/data/anup_taskcat_testing/workspace
