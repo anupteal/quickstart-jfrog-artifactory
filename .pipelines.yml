@@ -33,4 +33,4 @@
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - taskcat --version
                 - echo $aws_access_key_id
-                - pwd && find . -iname .taskcat.yml
+                - find /var/opt/jfrog/pipelines/data/anup_taskcat_testing -iname ".taskcat.yml"
