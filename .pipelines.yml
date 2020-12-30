@@ -33,6 +33,6 @@
               onExecute:
                 - ls *
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
-                - pwd
-                - ls dependencyState/resources/mygitAppRepo
+                - taskcat --version
+                - cd dependencyState/resources/mygitAppRepo; taskcat test run -n -l
                 - ls /var/opt/jfrog/pipelines/data/anup_taskcat_testing/workspace
