@@ -34,6 +34,7 @@
                 - echo $aws_access_key_id
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - taskcat --version
+                - git --version
                 - ls dependencyState/resources/mygitAppRepo/submodules/quickstart-aws-vpc/
                 - cd dependencyState/resources/mygitAppRepo/submodules; rm -rf quickstart-aws-vpc; git clone https://github.com/aws-quickstart/quickstart-aws-vpc.git; sleep 120
                 - ls dependencyState/resources/mygitAppRepo/submodules/quickstart-aws-vpc/
