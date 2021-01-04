@@ -37,6 +37,6 @@
                 - git --version
                 - ls dependencyState/resources/mygitAppRepo/submodules/quickstart-aws-vpc/
                 - cd dependencyState/resources/mygitAppRepo/submodules; pwd; rm -rf quickstart-aws-vpc; git clone https://github.com/aws-quickstart/quickstart-aws-vpc.git;  while [ ! -f quickstart-aws-vpc/templates/aws-vpc.template  ]; do sleep 2 ; done
-                - pwd; ls dependencyState/resources/mygitAppRepo/submodules/quickstart-aws-vpc/
-                - cd dependencyState/resources/mygitAppRepo; taskcat test run -n -l
+                - pwd; ls quickstart-aws-vpc/templates/aws-vpc.template 
+                - cd ../; pwd; taskcat test run -n -l
                 - ls /var/opt/jfrog/pipelines/data/anup_taskcat_testing/workspace
