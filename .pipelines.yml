@@ -31,7 +31,8 @@
                    - name: mygitAppRepo
            execution:
               onExecute:
-                - echo $aws_access_key_id
+                - export aws_access_key_id=${aws_access_key_id}
+                - export aws_secret_access_key=${aws_secret_access_key}
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - taskcat --version
                 - git --version
