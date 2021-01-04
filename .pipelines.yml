@@ -39,5 +39,5 @@
                 - cd dependencyState/resources/mygitAppRepo/submodules; pwd; rm -rf quickstart-aws-vpc; git clone https://github.com/aws-quickstart/quickstart-aws-vpc.git;  while [ ! -f quickstart-aws-vpc/templates/aws-vpc.template  ]; do sleep 2 ; done
                 - pwd; ls quickstart-aws-vpc/templates/aws-vpc.template 
                 - cd ../; pwd
-                - taskcat test run -n -l -A ${aws_access_key_id} -S ${aws_secret_access_key}
+                - taskcat test run -n -l
                
