@@ -65,10 +65,10 @@ tests:
   #     - us-gov-east-1
 
    create-vpc:
-     auth:
-       us-east-1     : default
-       us-gov-west-1 : gov
-       us-gov-east-1 : gov
+#     auth:
+#       us-east-1     : default
+#       us-gov-west-1 : gov
+#       us-gov-east-1 : gov
      parameters:
        KeyPairName         : "Anup"
        # AvailabilityZones   : "us-east-1a, us-east-1b"
