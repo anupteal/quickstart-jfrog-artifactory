@@ -12,8 +12,8 @@
          environmentVariables:
             readOnly:
                MY_MESSAGE: '"Hello World!"'
-               aws_access_key_id: ${int_anupgeneric_aws_access_key_id}
-               aws_secret_access_key: ${int_anupgeneric_aws_secret_access_key}
+               ACCESS_KEY: ${int_anupgeneric_aws_access_key_id}
+               SECRET_KEY: ${int_anupgeneric_aws_secret_access_key}
                region: "us-east-2"
 
        steps:
@@ -31,8 +31,9 @@
                    - name: mygitAppRepo
            execution:
               onExecute:
-                - export aws_access_key_id=${aws_access_key_id}
-                - export aws_secret_access_key=${aws_secret_access_key}
+                - echo $ACCESS_KEY $SECRET_KEY
+                - export aws_access_key_id=$ACCESS_KEY
+                - export aws_secret_access_key=$SECRET_KEY
                 - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - taskcat --version
                 - git --version
