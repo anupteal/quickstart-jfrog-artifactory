@@ -11,13 +11,12 @@
        configuration:
          environmentVariables:
             readOnly:
-               MY_MESSAGE: '"Hello World!"'
                ACCESS_KEY: ${int_anupgeneric_aws_access_key_id}
                SECRET_KEY: ${int_anupgeneric_aws_secret_access_key}
                region: "us-east-2"
 
        steps:
-         - name: step_1
+         - name: Execute taskcat
            type: Bash
            configuration:
               runtime:
@@ -31,17 +30,12 @@
                    - name: mygitAppRepo
            execution:
               onExecute:
-                - echo $ACCESS_KEY $SECRET_KEY
                 - export AWS_ACCESS_KEY_ID=$ACCESS_KEY
                 - export AWS_SECRET_ACCESS_KEY=$SECRET_KEY
                 - export AWS_DEFAULT_REGION=us-west-2
-                - echo $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY
-                - echo "Running $pipeline_name | $step_name on node ID $step_node_id"
                 - taskcat --version
                 - git --version
-                - ls dependencyState/resources/mygitAppRepo/submodules/quickstart-aws-vpc/
                 - cd dependencyState/resources/mygitAppRepo/submodules; pwd; rm -rf quickstart-aws-vpc; git clone https://github.com/aws-quickstart/quickstart-aws-vpc.git;  while [ ! -f quickstart-aws-vpc/templates/aws-vpc.template  ]; do sleep 2 ; done
-                - pwd; ls quickstart-aws-vpc/templates/aws-vpc.template 
                 - cd ../; pwd
                 - taskcat test run -n -l
                
