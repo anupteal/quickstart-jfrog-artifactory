@@ -25,7 +25,7 @@
                  image:
                    custom:
                      name: partnership-public-images.jfrog.io/cft/taskcat
-                     tag: "latest"
+                     tag: "1"
                      registry: anupdocker
               inputResources:
                    - name: mygitAppRepo
