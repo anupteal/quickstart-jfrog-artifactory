@@ -16,7 +16,7 @@
                region: "us-east-2"
 
        steps:
-         - name: Execute taskcat
+         - name: Execute_taskcat
            type: Bash
            configuration:
               runtime:
