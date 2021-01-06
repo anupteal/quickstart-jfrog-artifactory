@@ -14,9 +14,7 @@
                ACCESS_KEY: ${int_anupgeneric_accesskey}
                SECRET_KEY: ${int_anupgeneric_secretkey}
                region: "us-east-2"
-         integrations:
-          - name: anupgeneric
-          - name: AnupsAWS
+        
 
        steps:
          - name: Execute_taskcat
@@ -29,6 +27,9 @@
                      name: partnership-public-images.jfrog.io/cft/taskcat
                      tag: "1"
                      registry: anupdocker
+           integrations:
+                   - name: anupgeneric
+                   - name: AnupsAWS
               inputResources:
                    - name: mygitAppRepo
            execution:
