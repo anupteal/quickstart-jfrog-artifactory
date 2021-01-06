@@ -27,11 +27,13 @@
                      name: partnership-public-images.jfrog.io/cft/taskcat
                      tag: "1"
                      registry: anupdocker
+              inputResources:
+                   - name: mygitAppRepo
               integrations:
                    - name: anupgeneric
                    - name: AnupsAWS
-              inputResources:
-                   - name: mygitAppRepo
+               
+
            execution:
               onExecute:
                 - echo $int_anupgeneric_accesskey $int_anupgeneric_secretkey
