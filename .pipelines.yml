@@ -31,7 +31,6 @@
                    - name: mygitAppRepo
               integrations:
                    - name: anupgeneric
-                   - name: AnupsAWS
                
 
            execution:
