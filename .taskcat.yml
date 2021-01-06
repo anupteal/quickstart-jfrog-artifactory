@@ -70,7 +70,7 @@ tests:
        us-gov-west-1 : gov
        us-gov-east-1 : gov
      parameters:
-       KeyPairName         : "Anup"
+       KeyPairName         : $int_anupgeneric_keypair
        # AvailabilityZones   : "us-east-1a, us-east-1b"
        AvailabilityZones: "$[taskcat_genaz_2]"
      template: submodules/quickstart-aws-vpc/templates/aws-vpc.template
