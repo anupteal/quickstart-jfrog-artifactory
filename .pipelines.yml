@@ -11,8 +11,6 @@
        configuration:
          environmentVariables:
             readOnly:
-               ACCESS_KEY: ${int_anupgeneric_accesskey}
-               SECRET_KEY: ${int_anupgeneric_secretkey}
                region: "us-east-2"
         
 
