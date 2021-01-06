@@ -14,6 +14,9 @@
                ACCESS_KEY: ${int_anupgeneric_accesskey}
                SECRET_KEY: ${int_anupgeneric_secretkey}
                region: "us-east-2"
+         integrations:
+          - name: anupgeneric
+          - name: AnupsAWS
 
        steps:
          - name: Execute_taskcat
