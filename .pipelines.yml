@@ -33,14 +33,12 @@
 
            execution:
               onExecute:
-                - echo $int_anupgeneric_accesskey $int_anupgeneric_secretkey $ACCESS_KEY $SECRET_KEY
-                - export AWS_ACCESS_KEY_ID=$ACCESS_KEY
-                - export AWS_SECRET_ACCESS_KEY=$SECRET_KEY
+                - echo $int_anupgeneric_accesskey $int_anupgeneric_secretkey
+                - export AWS_ACCESS_KEY_ID=$int_anupgeneric_accesskey
+                - export AWS_SECRET_ACCESS_KEY=$int_anupgeneric_secretkey
                 - export AWS_DEFAULT_REGION=us-west-2
                 - taskcat --version
                 - git --version
-                - cd dependencyState/resources/mygitAppRepo/submodules; pwd; rm -rf quickstart-aws-vpc; git clone https://github.com/aws-quickstart/quickstart-aws-vpc.git;  while [ ! -f quickstart-aws-vpc/templates/aws-vpc.template  ]; do sleep 2 ; done
-                - rm -rf quickstart-linux-bastion; git clone https://github.com/aws-quickstart/quickstart-linux-bastion.git;  while [ ! -f quickstart-linux-bastion/templates/linux-bastion.template  ]; do sleep 2 ; done
-                - cd ../; pwd
-                - echo "taskcat test run -n -l"
+                - cd dependencyState/resources/mygitAppRepo/; pwd; git submodule init; git submodule update --remote --recursive; while [ ! -f submodules/quickstart-aws-vpc/templates/aws-vpc.template  ]; do sleep 2 ; done
+                - taskcat test run -n -l
                
