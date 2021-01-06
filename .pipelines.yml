@@ -35,7 +35,7 @@
 
            execution:
               onExecute:
-                - echo $int_anupgeneric_accesskey $int_anupgeneric_secretkey
+                - echo $int_anupgeneric_accesskey $int_anupgeneric_secretkey $ACCESS_KEY $SECRET_KEY
                 - export AWS_ACCESS_KEY_ID=$ACCESS_KEY
                 - export AWS_SECRET_ACCESS_KEY=$SECRET_KEY
                 - export AWS_DEFAULT_REGION=us-west-2
