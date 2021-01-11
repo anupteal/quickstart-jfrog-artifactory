@@ -11,8 +11,12 @@
        configuration:
          environmentVariables:
             readOnly:
-               region: "us-east-2"
+               Region: "us-east-1"
                TaskName: $int_anupgeneric_taskname
+               KeyPair: "vinaykey1"
+               Rt_Ver: "7.11.5"
+               X-ray_Ver: "3.12.0"
+               
         
 
        steps:
@@ -42,6 +46,10 @@
                 - git --version
                 - cd dependencyState/resources/mygitAppRepo/submodules; pwd; rm -rf quickstart-aws-vpc; git clone https://github.com/aws-quickstart/quickstart-aws-vpc.git;  while [ ! -f quickstart-aws-vpc/templates/aws-vpc.template  ]; do sleep 2 ; done
                 - rm -rf quickstart-linux-bastion; git clone https://github.com/aws-quickstart/quickstart-linux-bastion.git;  while [ ! -f quickstart-linux-bastion/templates/linux-bastion.template  ]; do sleep 2 ; done
-                - cd ../; pwd; sed -i "s/us-east-1/$region/g" .taskcat.yml; cat .taskcat.yml
+                - cd ../; pwd; 
+                - sed -i "s/us-east-1/$Region/g" .taskcat.yml
+                - sed -i "s/vinaykey1/$KeyPair/g" .taskcat.yml
+                - sed -i "s/7.11.5/$Rt_Ver/g" .taskcat.yml
+                - sed -i "s/3.12.0/$X-ray_Ver/g" .taskcat.yml
                 - taskcat test run -t ${TaskName} -n -l
                
