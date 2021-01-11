@@ -12,6 +12,7 @@
          environmentVariables:
             readOnly:
                region: "us-east-2"
+               TaskName: $int_anupgeneric_TaskName
         
 
        steps:
