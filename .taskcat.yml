@@ -88,7 +88,7 @@ tests:
        us-gov-east-1: gov
      parameters:
        KeyPairName: "vinaykey1"
-       ArtifactoryVersion: 7.11.2
+       ArtifactoryVersion: 7.11.5
        RemoteAccessCidr: "0.0.0.0/0"
        AccessCidr: "0.0.0.0/0"
        DatabasePassword: "$[taskcat_genpass_8A]"
@@ -104,7 +104,7 @@ tests:
        SmLicenseCertName: "jfrog-artifactory"
        MultiAzDatabase: "false"
        InstallXray: "false"
-       XrayVersion: 3.11.2
+       XrayVersion: 3.12.0
        XrayDatabasePassword: "$[taskcat_genpass_8A]"
        XrayNumberOfInstances: 1
 
