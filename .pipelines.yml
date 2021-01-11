@@ -23,7 +23,7 @@
                  image:
                    custom:
                      name: partnership-public-images.jfrog.io/cft/taskcat
-                     tag: "1"
+                     tag: "0.9.21"
                      registry: anupdocker
               inputResources:
                    - name: mygitAppRepo
