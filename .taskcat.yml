@@ -142,8 +142,8 @@ tests:
   #     # PrivateSubnet2Id    : "subnet-012fc1245aca55664"
 
   #   template: templates/jfrog-artifactory-ec2-existing-vpc.template.yaml
-  #   regions:
-  #     # - us-east-1
+     regions:
+        - us-east-1
   #     # - us-east-2
   #     # - us-west-1
   #     # - us-west-2
