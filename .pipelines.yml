@@ -44,6 +44,7 @@
                 - export AWS_DEFAULT_REGION=us-west-2
                 - taskcat --version
                 - git --version
+                - make submodules
                 - cd dependencyState/resources/mygitAppRepo/submodules; pwd; rm -rf quickstart-aws-vpc; git clone https://github.com/aws-quickstart/quickstart-aws-vpc.git;  while [ ! -f quickstart-aws-vpc/templates/aws-vpc.template  ]; do sleep 2 ; done
                 - rm -rf quickstart-linux-bastion; git clone https://github.com/aws-quickstart/quickstart-linux-bastion.git;  while [ ! -f quickstart-linux-bastion/templates/linux-bastion.template  ]; do sleep 2 ; done
                 - cd ../; pwd; 
