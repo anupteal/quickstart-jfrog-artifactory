@@ -44,9 +44,8 @@
                 - export AWS_DEFAULT_REGION=us-west-2
                 - taskcat --version
                 - git --version
-                - cd dependencyState/resources/mygitAppRepo/; make submodules; cd submodules; pwd;  rm -rf quickstart-aws-vpc; git clone https://github.com/aws-quickstart/quickstart-aws-vpc.git;  while [ ! -f quickstart-aws-vpc/templates/aws-vpc.template  ]; do sleep 2 ; done
-                - rm -rf quickstart-linux-bastion; git clone https://github.com/aws-quickstart/quickstart-linux-bastion.git;  while [ ! -f quickstart-linux-bastion/templates/linux-bastion.template  ]; do sleep 2 ; done
-                - cd ../; pwd; 
+                - who
+                - cd dependencyState/resources/mygitAppRepo/; git submodule init; git submodule update --remote --recursive
                 - sed -i "s/us-east-1/$Region/g" .taskcat.yml
                 - sed -i "s/vinaykey1/$KeyPair/g" .taskcat.yml
                 - sed -i "s/7.11.5/$Rt_Ver/g" .taskcat.yml
