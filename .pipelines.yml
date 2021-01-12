@@ -51,5 +51,5 @@
                 - sed -i "s/7.11.5/$Rt_Ver/g" .taskcat.yml
                 - sed -i "s/3.12.0/$Xray_Ver/g" .taskcat.yml
                 - sed -i "s/seller/$Profile/g" .taskcat.yml
-                - taskcat test run -t ${TaskName} -n -l >> /tmp/abc.txt
+                - taskcat --quiet test run -t ${TaskName} -n -l >> /tmp/abc.txt 2>&1
                
