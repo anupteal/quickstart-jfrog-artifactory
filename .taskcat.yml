@@ -83,14 +83,14 @@ tests:
   #     - us-gov-west-1
 
 
-  create-vpc:
-    auth:
-      us-east-1     : default
-      us-gov-west-1 : gov
-      us-gov-east-1 : gov
-    parameters:
-      KeyPairName         : "Anup"
-      AvailabilityZones   : "$[taskcat_genaz_2]"
+   create-vpc:
+     auth:
+       us-east-1     : default
+       us-gov-west-1 : gov
+       us-gov-east-1 : gov
+     parameters:
+       KeyPairName         : "Anup"
+       AvailabilityZones   : "$[taskcat_genaz_2]"
      # NumberOfAZs         : 2
      # VpcId               : "vpc-0cb9dc2b397cb2595"
      # PrivateSubnet1ACIDR : "10.0.0.0/19"
@@ -98,9 +98,9 @@ tests:
      # PublicSubnet1CIDR   : "10.0.128.0/20"
      # PublicSubnet2CIDR   : "10.0.144.0/20"
      # VPCCIDR             : "10.0.0.0/16"
-    template: submodules/quickstart-aws-vpc/templates/aws-vpc.template
-    regions:
-      - us-east-1
+     template: submodules/quickstart-aws-vpc/templates/aws-vpc.template
+     regions:
+       - us-east-1
        # - us-gov-east-1
 
 
