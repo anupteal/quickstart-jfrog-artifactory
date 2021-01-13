@@ -32,8 +32,6 @@
                      name: partnership-public-images.jfrog.io/cft/taskcat
                      tag: "0.9.21"
                      registry: anupdocker
-              inputResources:
-                   - name: mygitAppRepo
               integrations:
                    - name: anupgeneric
                
