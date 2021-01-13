@@ -3,9 +3,7 @@
       type: GitRepo
       configuration:
           gitProvider: AnupsGitHub
-          path: anupteal/quickstart-jfrog-artifactory
-          branches:
-             include: 7.11.2
+ 
   pipelines:
      - name: anup_taskcat_testing
        configuration:
