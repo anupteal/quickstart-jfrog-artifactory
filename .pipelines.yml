@@ -4,6 +4,8 @@
       configuration:
           gitProvider: AnupsGitHub
           path: anupteal/quickstart-jfrog-artifactory
+          branches:
+            include: 7.10.6
  
   pipelines:
      - name: anup_taskcat_testing
