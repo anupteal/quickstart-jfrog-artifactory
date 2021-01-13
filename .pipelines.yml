@@ -45,7 +45,7 @@
                 - export AWS_SECRET_ACCESS_KEY=$int_anupgeneric_secretkey
                 - export AWS_DEFAULT_REGION=$Region
                 - taskcat --version
-                - git --version; cd dependencyState/resources/mygitAppRepo/; git branch; cd
+                - git --version
                 - git clone -b $Branch_Name https://github.com/anupteal/quickstart-jfrog-artifactory.git ; pwd;cd quickstart-jfrog-artifactory; git branch ;ls 
                 - pwd; make submodules
                 - sed -i "s/us-east-1/$Region/g" .taskcat.yml
