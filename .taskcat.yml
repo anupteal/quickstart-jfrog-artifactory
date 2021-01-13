@@ -90,17 +90,17 @@ tests:
       us-gov-east-1 : gov
     parameters:
       KeyPairName         : "Anup"
-      AvailabilityZones   : "us-east-2a, us-east-2b"
-      NumberOfAZs         : 2
-      VpcId               : "vpc-0cb9dc2b397cb2595"
-      PrivateSubnet1ACIDR : "10.0.0.0/19"
-      PrivateSubnet2ACIDR : "10.0.32.0/19"
-      PublicSubnet1CIDR   : "10.0.128.0/20"
-      PublicSubnet2CIDR   : "10.0.144.0/20"
-      VPCCIDR             : "10.0.0.0/16"
+      AvailabilityZones   : "$[taskcat_genaz_2]"
+     # NumberOfAZs         : 2
+     # VpcId               : "vpc-0cb9dc2b397cb2595"
+     # PrivateSubnet1ACIDR : "10.0.0.0/19"
+     # PrivateSubnet2ACIDR : "10.0.32.0/19"
+     # PublicSubnet1CIDR   : "10.0.128.0/20"
+     # PublicSubnet2CIDR   : "10.0.144.0/20"
+     # VPCCIDR             : "10.0.0.0/16"
     template: submodules/quickstart-aws-vpc/templates/aws-vpc.template
     regions:
-      - us-east-2
+      - us-east-1
        # - us-gov-east-1
 
 
