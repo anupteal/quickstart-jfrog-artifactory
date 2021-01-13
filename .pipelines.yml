@@ -46,7 +46,7 @@
                 - taskcat --version
                 - git --version
                 - git clone -b $Branch_Name https://github.com/anupteal/quickstart-jfrog-artifactory.git ; pwd; ls 
-                - cd dependencyState/resources/mygitAppRepo/; make submodules
+                - cd dependencyState/resources/mygitAppRepo/; git branch; make submodules
                 - sed -i "s/us-east-1/$Region/g" .taskcat.yml
                 - sed -i "s/vinaykey1/$KeyPair/g" .taskcat.yml
                 - sed -i "s/7.11.5/$Rt_Ver/g" .taskcat.yml
