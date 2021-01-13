@@ -45,7 +45,7 @@
                 - export AWS_DEFAULT_REGION=$Region
                 - taskcat --version
                 - git --version
-                - git clone -b $Branch_Name https://github.com/anupteal/quickstart-jfrog-artifactory.git ; pwd; git branch ;ls 
+                - git clone -b $Branch_Name https://github.com/anupteal/quickstart-jfrog-artifactory.git ; pwd;cd quickstart-jfrog-artifactory; git branch ;cd ..;ls 
                 - cd dependencyState/resources/mygitAppRepo/; git branch;pwd; make submodules
                 - sed -i "s/us-east-1/$Region/g" .taskcat.yml
                 - sed -i "s/vinaykey1/$KeyPair/g" .taskcat.yml
