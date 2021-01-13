@@ -1,0 +1,58 @@
+  resources:
+    - name: mygitAppRepo
+      type: GitRepo
+      configuration:
+          gitProvider: AnupsGitHub
+          path: anupteal/quickstart-jfrog-artifactory
+          branches:
+            include: 7.11.2
+ 
+  pipelines:
+     - name: anup_taskcat_testing
+       configuration:
+         environmentVariables:
+            readOnly:
+               Region: "us-east-1"
+               TaskName: "sample"
+               KeyPair: "vinaykey1"
+               Rt_Ver: "7.11.5"
+               Xray_Ver: "3.12.0"
+               Profile: seller
+               Branch_Name: "7.11.2"
+        
+
+       steps:
+         - name: Execute_taskcat
+           type: Bash
+           configuration:
+              runtime:
+                 type: image
+                 image:
+                   custom:
+                     name: partnership-public-images.jfrog.io/cft/taskcat
+                     tag: "0.9.21"
+                     registry: anupdocker
+              inputResources:
+                   - name: mygitAppRepo
+              integrations:
+                   - name: anupgeneric
+               
+
+           execution:
+              onExecute:
+                - echo $int_anupgeneric_accesskey $int_anupgeneric_secretkey $int_anupgeneric_keypair $int_anupgeneric_taskname $TaskName
+                - export AWS_ACCESS_KEY_ID=$int_anupgeneric_accesskey
+                - export AWS_SECRET_ACCESS_KEY=$int_anupgeneric_secretkey
+                - export AWS_DEFAULT_REGION=$Region
+                - taskcat --version
+                - git --version; cd dependencyState/resources/mygitAppRepo/; git branch; cd
+                - git clone -b $Branch_Name https://github.com/anupteal/quickstart-jfrog-artifactory.git ; pwd;cd quickstart-jfrog-artifactory; git branch ;ls 
+                - pwd; make submodules
+                - sed -i "s/us-east-1/$Region/g" .taskcat.yml
+                - sed -i "s/vinaykey1/$KeyPair/g" .taskcat.yml
+                - sed -i "s/7.11.5/$Rt_Ver/g" .taskcat.yml
+                - sed -i "s/3.12.0/$Xray_Ver/g" .taskcat.yml
+                - sed -i "s/seller/$Profile/g" .taskcat.yml
+                - taskcat --quiet test run -t ${TaskName} -n -l >> /tmp/abc.txt 2>&1
+                - cat /tmp/abc.txt
+               
