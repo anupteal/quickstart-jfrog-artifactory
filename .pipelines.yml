@@ -22,7 +22,7 @@
         
 
        steps:
-         - name: Execute_taskcat
+         - name: Deployment
            type: Bash
            configuration:
               runtime:
