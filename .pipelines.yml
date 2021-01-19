@@ -8,7 +8,7 @@
             include: 7.11.2
  
   pipelines:
-     - name: Jfrog-AWS-Deployment
+     - name: anup-pipeline-test
        configuration:
          environmentVariables:
             readOnly:
