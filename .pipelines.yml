@@ -18,7 +18,7 @@
                Rt_Ver: "7.11.5"
                Xray_Ver: "3.12.0"
                Profile: seller
-               Branch_Name: "7.11.2"
+               BranchName: "7.11.2"
         
 
        steps:
@@ -44,7 +44,7 @@
                 - export AWS_DEFAULT_REGION=$Region
                 - taskcat --version
                 - git --version
-                - git clone -b $Branch_Name https://github.com/anupteal/quickstart-jfrog-artifactory.git ; pwd;cd quickstart-jfrog-artifactory; git branch ;ls 
+                - git clone -b $BranchName https://github.com/anupteal/quickstart-jfrog-artifactory.git ; pwd;cd quickstart-jfrog-artifactory; git branch ;ls 
                 - pwd; make submodules
                 - sed -i "s/us-east-1/$Region/g" .taskcat.yml
                 - sed -i "s/vinaykey1/$KeyPair/g" .taskcat.yml
